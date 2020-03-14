@@ -42,7 +42,7 @@ const CustomerSlider = props => {
         transform: [myTransform]
       }
     };
-    console.log(finalRender);
+    // console.log(finalRender);
     return finalRender;
   };
 
