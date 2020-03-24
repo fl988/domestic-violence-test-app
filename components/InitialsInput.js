@@ -1,46 +1,58 @@
 import React, { useState } from "react";
-import { View, Button, TextInput, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  Keyboard,
+  TouchableOpacity
+} from "react-native";
 
 // import styles
-import androidStyles from "../cstyles/android/androidStyles.js";
+import myStyles from "../cstyles/android/androidStyles.js";
 
 const InitialsInput = props => {
-  const { sayHello } = props;
-
   const [getInitialsEntered, setInitialsEntered] = useState(""); // "" by default.
   const [getButtonHideStatus, setButtonHideStatus] = useState(""); //The button that will show "Continue" when initials are completely filled out. Otherwise hide it.
 
   const initialsInputHandler = userInput => {
-    setButtonHideStatus(userInput.length >= 2 ? false : true);
-
+    setButtonHideStatus(userInput.length >= 2 ? true : false);
     if (userInput.length >= 3) {
       return;
     }
     setInitialsEntered(userInput);
   };
 
-  var button = null;
+  const onNextHandler = () => {
+    Keyboard.dismiss();
+    props.onNext();
+  };
 
-  if (!getButtonHideStatus) {
+  var button = null;
+  if (getButtonHideStatus) {
     button = (
-      <Button
-        title="Continue"
-        //   onPress={() => Alert.alert("Simple Button pressed")}
-        onPress={sayHello.bind(this, getInitialsEntered)}
-      />
+      <TouchableOpacity
+        style={myStyles.button2}
+        onPress={() => onNextHandler()}
+      >
+        <Text style={myStyles.buttonText}>{"NEXT"}</Text>
+      </TouchableOpacity>
     );
   }
 
   return (
-    <View style={{ alignItems: "center" }}>
+    <View style={myStyles.frame}>
       <TextInput
-        placeholder="Initials"
+        underlineColorAndroid="transparent"
+        placeholder="Leave blank to remain anonymous"
+        // selectionColor={"#428AF8"}
         placeholderTextColor="#464950"
-        style={androidStyles.textInputStyle}
+        style={myStyles.input}
         onChangeText={initialsInputHandler} //For every key strokes, this will invoke initialsInputHandler.
-        value={getInitialsEntered}
+        value={getInitialsEntered.toUpperCase().replace(/[^a-zA-Z ]/g, "")}
       />
-      {button}
+
+      <View>{button}</View>
     </View>
   );
 };
