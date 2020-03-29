@@ -1,9 +1,14 @@
 import { StyleSheet, Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("window");
+const PAGE_HEIGHT = Dimensions.get("window").height;
 const PAGE_WIDTH = Dimensions.get("window").width;
 
 export default StyleSheet.create({
+  navBackButton: {
+    marginTop: PAGE_HEIGHT / 1.2,
+    marginLeft: 60
+  },
   screenDimension: {
     width,
     height,
@@ -18,6 +23,12 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1
+  },
+  splashScreenContainer: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
   screenHeader: {
     flex: 1,
@@ -34,6 +45,11 @@ export default StyleSheet.create({
   buttonText: {
     textAlign: "center",
     margin: 10,
+    color: "#ffffff",
+    backgroundColor: "transparent"
+  },
+  buttonTextNoMargin: {
+    textAlign: "center",
     color: "#ffffff",
     backgroundColor: "transparent"
   },
@@ -105,9 +121,29 @@ export default StyleSheet.create({
     position: "absolute",
     left: 0,
     bottom: 160,
+    // borderRadius: (PAGE_WIDTH - 100) / 2,
+    height: PAGE_WIDTH - 100,
+    width: PAGE_WIDTH - 100,
+    margin: 50,
+    // backgroundColor: "#fff",
+    paddingTop: 70
+  },
+  frameV2: {
+    position: "absolute",
+    left: 0,
+    bottom: 160,
     borderRadius: (PAGE_WIDTH - 100) / 2,
     height: PAGE_WIDTH - 100,
     width: PAGE_WIDTH - 100,
+    margin: 50
+  },
+  frameHalf: {
+    position: "absolute",
+    left: 0,
+    bottom: 160,
+    borderRadius: (PAGE_WIDTH - 100) / 2,
+    height: PAGE_WIDTH - 200,
+    width: PAGE_WIDTH - 200,
     margin: 50,
     paddingTop: 70
   },
@@ -151,6 +187,30 @@ export default StyleSheet.create({
     alignItems: "center",
     bottom: 30
   },
+  testbtn: {
+    backgroundColor: "rgba(0,0,0, 0)",
+    margin: 12,
+    marginTop: 40,
+    borderRadius: 50,
+    alignItems: "center",
+    bottom: 30
+  },
+  button3: {
+    backgroundColor: "rgba(0,0,0, 0.3)",
+    margin: 12,
+    borderRadius: 50,
+    alignItems: "center",
+    bottom: 30
+  },
+  button4: {
+    margin: 15,
+    height: 40,
+    borderRadius: 3,
+    backgroundColor: "rgba(255,255,255, 0.3)",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
+  },
   buttonText: {
     margin: 15,
     marginLeft: 50,
@@ -181,5 +241,46 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#56203b"
+  },
+
+  // MODAL STYLE
+  divider: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "lightgray"
+  },
+  bodyText: {},
+  modalTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    padding: 15,
+    color: "#000"
+  },
+  modal: {
+    backgroundColor: "#00000099",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  modalContainer: {
+    backgroundColor: "#f9fafb",
+    width: "80%",
+    borderRadius: 5
+  },
+  modalHeader: {},
+  modalBody: {
+    backgroundColor: "#fff",
+    paddingVertical: 20,
+    paddingHorizontal: 10
+  },
+  modalFooter: {},
+  actions: {
+    borderRadius: 5,
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20
+  },
+  actionText: {
+    color: "#fff"
   }
 });

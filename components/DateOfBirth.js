@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-// import styles
-import myStyles from "../cstyles/android/androidStyles.js";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Database
+import db from "../db/scripts/User.js";
+// Styles
+import styles from "../cstyles/android/androidStyles.js";
 
 const DateOfBirth = props => {
+  /***********************************************************************************/
+  // States
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDateDisplay, setDateDisplay] = useState("");
   const [getButtonHideStatus, setButtonHideStatus] = useState("");
 
+  /***********************************************************************************/
+  // Functional components
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -28,28 +34,44 @@ const DateOfBirth = props => {
     setButtonHideStatus(true);
   };
 
-  var button = null;
+  const onNextHandler = dateDisplay => {
+    props.onNext(); //Swipe to next page.
+    db.updateUserDOB(getDateDisplay.toString());
+  };
+
+  /***********************************************************************************/
+  // The "Next" button shows once the user successfully entered their DOB.
+  var nextBtn = (
+    <TouchableOpacity style={styles.testbtn}>
+      <Text style={styles.buttonText}></Text>
+    </TouchableOpacity>
+  );
   if (getButtonHideStatus) {
-    button = (
-      <TouchableOpacity style={myStyles.button2} onPress={() => props.onNext()}>
-        <Text style={myStyles.buttonText}>{"NEXT"}</Text>
+    nextBtn = (
+      <TouchableOpacity
+        style={styles.button2}
+        onPress={() => onNextHandler(getDateDisplay)}
+      >
+        <Text style={styles.buttonText}>{"NEXT"}</Text>
       </TouchableOpacity>
     );
   }
 
+  /***********************************************************************************/
+  // The returning component
   return (
-    <View style={myStyles.frame}>
+    <View style={styles.frame}>
       <TouchableOpacity onPress={showDatePicker}>
         <TextInput
           underlineColorAndroid="transparent"
           placeholder="'Tap' to select date of birth"
           placeholderTextColor="#464950"
-          style={myStyles.input}
+          style={styles.input}
           editable={false}
           value={getDateDisplay.length > 0 ? getDateDisplay.toString() : null}
         />
       </TouchableOpacity>
-      <View>{button}</View>
+      <View>{nextBtn}</View>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"

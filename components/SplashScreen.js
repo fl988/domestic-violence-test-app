@@ -1,16 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import androidStyles from "../cstyles/android/androidStyles.js";
+import styles from "../cstyles/android/androidStyles.js";
 
 /*
-This screen's main purpose is to show 2 screens.
-1st is splash screen
-2nd is *the page that you want to be shown, usually "main page" or "home page" or "home dashboard" etc.*
+This screen's main purpose is to always show a splash screen every time the app is opened or resumed.
 */
 
 export default class SplashScreen extends React.Component {
   /****************************************************************************************************************************************************/
-  //We set0 'isLoading' to 'true'
+  //We set 'isLoading' to 'true'
   constructor() {
     super();
     this.state = { isLoading: true };
@@ -43,7 +41,10 @@ export default class SplashScreen extends React.Component {
 
   /****************************************************************************************************************************************************/
   render() {
-    const viewStyles = [styles.container, { backgroundColor: "orange" }];
+    const viewStyles = [
+      styles.splashScreenContainer,
+      { backgroundColor: "orange" }
+    ];
     const textStyles = {
       color: "white",
       fontSize: 40,
@@ -53,7 +54,7 @@ export default class SplashScreen extends React.Component {
     if (this.state.isLoading) {
       //This will always be rendered FIRST
       return (
-        <View style={androidStyles.screenDimension}>
+        <View style={styles.screenDimension}>
           <View style={viewStyles}>
             <Text style={textStyles}>Splash Screen</Text>
           </View>
@@ -65,22 +66,3 @@ export default class SplashScreen extends React.Component {
     return null;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
-});
