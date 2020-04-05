@@ -1,16 +1,47 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
-import styles from "./cstyles/android/androidStyles.js";
-import SplashScreen from "./components/SplashScreen";
-import UserSetupSwiper from "./components/UserSetupSwiper";
+import db from "app/db/scripts/User.js";
+import styles from "app/cstyles/android/androidStyles.js";
+import SplashScreen from "app/components/SplashScreen";
+import UserSetupSwiper from "app/components/UserSetupSwiper";
+import HomeDashboard from "app/components/HomeDashboard";
 
 export default class App extends Component {
+  state = {
+    userLanding: <HomeDashboard />
+  };
+
+  //"componentDidMount" will execute automatically before render()
+  componentDidMount() {
+    db.setUpUserTable();
+    this.checkUser();
+  }
+
+  //This function is only invoked when a user has successfully confirmed their details are all correct by pressing the "Yes" button upon confirmation.
+  completeUserSetUp = () => {
+    db.updateUserSetUp(); // We set the 'userSetUp' boolean in our table 'user' to true;
+    this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
+  };
+
+  async checkUser() {
+    let isUserAlreadySet = await db.checkUserSetUp();
+    if (isUserAlreadySet) {
+      this.setState({
+        userLanding: <HomeDashboard />
+      });
+    } else {
+      this.setState({
+        userLanding: <UserSetupSwiper completeUserSetUp={this.completeUserSetUp} /> // prettier-ignore
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <SplashScreen />
-        <UserSetupSwiper />
+        {this.state.userLanding}
       </View>
     );
   }

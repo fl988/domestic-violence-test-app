@@ -1,10 +1,52 @@
 import React, { Component } from "react";
 
-import * as Constants from "../../components/Constants.js";
+import * as Constants from "app/components/Constants.js";
 import { openDatabase } from "expo-sqlite";
 const db = openDatabase("dbUser");
 
 class User {
+  /****************************************************************************************************************************************************/
+  //Checks if a user has already done their personal set up. Returns a boolean;
+  checkUserSetUp() {
+    return new Promise((resolve, reject) => {
+      try {
+        db.transaction(tx => {
+          tx.executeSql("SELECT userSetUp FROM user;", [], (trans, rs) => {
+            resolve(rs.rows.item(0).userSetUp == true);
+          });
+        });
+      } catch (error) {}
+    });
+  }
+
+  /****************************************************************************************************************************************************/
+  //Reads user's condition from 'user' table. Returns an array of conditions;
+  grabUserConditionsAsArray() {
+    return new Promise((resolve, reject) => {
+      try {
+        db.transaction(tx => {
+          tx.executeSql("SELECT * FROM user;", [], (trans, rs) => {
+            let item = rs.rows.item(0);
+            let conditionArr = [
+              item.condition1,
+              item.condition2,
+              item.condition3,
+              item.condition4,
+              item.condition5,
+              item.condition6,
+              item.condition7,
+              item.condition8,
+              item.condition9,
+              item.condition10,
+              item.condition11
+            ];
+            resolve(conditionArr);
+          });
+        });
+      } catch (error) {}
+    });
+  }
+
   /****************************************************************************************************************************************************/
   //Reads data from 'user' table. Returns a resultset;
   grabUserDetails() {
@@ -23,12 +65,36 @@ class User {
   //Create Table 'user'. No return;
   createUser() {
     try {
-      db.transaction(tx => {
-        tx.executeSql(
-          "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY NOT NULL, initials TEXT DEFAULT 'XX', dob TEXT DEFAULT (datetime('now')), userTypeId INT DEFAULT 0);"
-        );
-      });
-    } catch (error) {}
+      db.transaction(
+        tx => {
+          tx.executeSql(
+            "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY NOT NULL, initials TEXT DEFAULT 'XX', dob TEXT DEFAULT (datetime('now')), userTypeId INT DEFAULT 0, userSetUp BOOLEAN DEFAULT 0, " +
+              " condition1 BOOLEAN DEFAULT 1, " +
+              " condition2 BOOLEAN DEFAULT 0, " +
+              " condition3 BOOLEAN DEFAULT 0, " +
+              " condition4 BOOLEAN DEFAULT 0, " +
+              " condition5 BOOLEAN DEFAULT 0, " +
+              " condition6 BOOLEAN DEFAULT 0, " +
+              " condition7 BOOLEAN DEFAULT 0, " +
+              " condition8 BOOLEAN DEFAULT 0, " +
+              " condition9 BOOLEAN DEFAULT 0, " +
+              " condition10 BOOLEAN DEFAULT 0, " +
+              " condition11 BOOLEAN DEFAULT 0 " +
+              ");",
+            [],
+            function(tx, success) {/* success */}, // prettier-ignore
+            function(tx, error) {
+              console.log("error createUser = " + error);
+            }
+          );
+        },
+        (tx, err) => {
+          console.log(err);
+        }
+      );
+    } catch (error) {
+      console.log("FAIL CREATE USER");
+    }
   }
 
   /****************************************************************************************************************************************************/
@@ -45,12 +111,23 @@ class User {
   //Inserts a new record into 'user' table. No return;
   insertUserDefaultRecord() {
     try {
-      db.transaction(tx => {
-        tx.executeSql(
-          "INSERT INTO user(initials, dob, userTypeId) VALUES('','','')",
-          []
-        );
-      });
+      db.transaction(
+        tx => {
+          tx.executeSql(
+            "INSERT INTO " +
+              " user(initials, dob, userTypeId) " +
+              " VALUES('','','')",
+            [],
+            function(tx, success) {/* success */}, // prettier-ignore
+            function(tx, error) {
+              console.log("error insertUserDefaultRecord = " + error);
+            }
+          );
+        },
+        (tx, err) => {
+          console.log(err);
+        }
+      );
     } catch (err) {}
   }
 
@@ -72,6 +149,7 @@ class User {
           });
         },
         (tx, err) => {
+          console.log(err);
           //This is 100% the error: => "no such table: user (code 1 SQLITE_ERROR[1]): , while compiling: SELECT * FROM user"
           //So to overcome this problem we'll have to create a "user" table then insert a default record.
           this.createUser();
@@ -105,6 +183,37 @@ class User {
     try {
       db.transaction(tx => {
         tx.executeSql("UPDATE USER SET userTypeId = ? WHERE id = 1;", [v]);
+      });
+    } catch (error) {}
+  }
+
+  // updates 'user' condition(s), no return;
+  updateUserConditions(conditionNum, conditionValue) {
+    console.log(
+      "conditionNum: " + conditionNum + " conditionValue: " + conditionValue
+    );
+    try {
+      db.transaction(tx => {
+        tx.executeSql(
+          "UPDATE USER SET condition" + conditionNum + " = ? WHERE id = 1;",
+          [conditionValue]
+        );
+      });
+    } catch (error) {}
+  }
+
+  // update 'user' userSetUp, no return;
+  updateUserSetUp() {
+    try {
+      db.transaction(tx => {
+        tx.executeSql(
+          "UPDATE USER SET userSetUp = 1 WHERE id = 1;",
+          [],
+          function(tx, success) {/* success */}, // prettier-ignore
+          function(tx, error) {
+            console.log("error insertUserDefaultRecord = " + error);
+          }
+        );
       });
     } catch (error) {}
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import styles from "../cstyles/android/androidStyles.js";
+import styles from "app/cstyles/android/androidStyles.js";
 
 /*
 This screen's main purpose is to always show a splash screen every time the app is opened or resumed.

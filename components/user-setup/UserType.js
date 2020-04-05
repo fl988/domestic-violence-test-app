@@ -1,19 +1,11 @@
 import React, { useState } from "react";
-import { Icon } from "react-native-elements";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Modal,
-  TouchableHighlight,
-  Alert
-} from "react-native";
-import * as Constants from "./Constants.js";
-//
-import db from "../db/scripts/User.js";
-import styles from "../cstyles/android/androidStyles.js";
-import CustomModal from "./CustomModal";
+import { Text, View, TouchableOpacity } from "react-native";
+import * as Constants from "app/components/Constants.js";
+// Database
+import db from "app/db/scripts/User.js";
+// Styles
+import styles from "app/cstyles/android/androidStyles.js";
+import CustomModal from "app/components/user-setup/CustomModal";
 
 const UserType = props => {
   /***********************************************************************************/
@@ -29,6 +21,7 @@ const UserType = props => {
 
   const userTypeHandler = v => {
     db.updateUserType(v);
+    props.onNext();
     readUserDetails();
   };
 
@@ -66,7 +59,7 @@ const UserType = props => {
       <TouchableOpacity
         style={styles.button4}
         onPress={() => {
-          modalVisibleHandler(true);
+          // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_LEARNING);
         }}
       >
@@ -78,7 +71,7 @@ const UserType = props => {
       <TouchableOpacity
         style={styles.button4}
         onPress={() => {
-          modalVisibleHandler(true);
+          // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_PARENT_GUARDIAN);
         }}
       >
@@ -90,7 +83,7 @@ const UserType = props => {
       <TouchableOpacity
         style={styles.button4}
         onPress={() => {
-          modalVisibleHandler(true);
+          // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_AVO_HOLDER);
         }}
       >

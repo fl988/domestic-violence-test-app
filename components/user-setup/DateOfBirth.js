@@ -3,9 +3,9 @@ import { Text, View, TouchableOpacity, TextInput } from "react-native";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // Database
-import db from "../db/scripts/User.js";
+import db from "app/db/scripts/User.js";
 // Styles
-import styles from "../cstyles/android/androidStyles.js";
+import styles from "app/cstyles/android/androidStyles.js";
 
 const DateOfBirth = props => {
   /***********************************************************************************/

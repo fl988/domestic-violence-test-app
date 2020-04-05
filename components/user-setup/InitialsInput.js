@@ -7,9 +7,9 @@ import {
   TouchableOpacity
 } from "react-native";
 // Database
-import db from "../db/scripts/User.js";
+import db from "app/db/scripts/User.js";
 // Styles
-import myStyles from "../cstyles/android/androidStyles.js";
+import myStyles from "app/cstyles/android/androidStyles.js";
 
 const InitialsInput = props => {
   /***********************************************************************************/

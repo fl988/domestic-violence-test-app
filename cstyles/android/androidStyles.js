@@ -7,7 +7,8 @@ const PAGE_WIDTH = Dimensions.get("window").width;
 export default StyleSheet.create({
   navBackButton: {
     marginTop: PAGE_HEIGHT / 1.2,
-    marginLeft: 60
+    marginLeft: 60,
+    marginRight: 60
   },
   screenDimension: {
     width,
@@ -87,7 +88,7 @@ export default StyleSheet.create({
     }
   },
   title: {
-    fontSize: PAGE_WIDTH / 12,
+    fontSize: PAGE_WIDTH / 15,
     fontWeight: "bold",
     color: "#fff",
     backgroundColor: "transparent",
@@ -131,9 +132,9 @@ export default StyleSheet.create({
   frameV2: {
     position: "absolute",
     left: 0,
-    bottom: 160,
-    borderRadius: (PAGE_WIDTH - 100) / 2,
-    height: PAGE_WIDTH - 100,
+    bottom: 110,
+    // borderRadius: (PAGE_WIDTH - 100) / 2,
+    height: PAGE_WIDTH - 20,
     width: PAGE_WIDTH - 100,
     margin: 50
   },
@@ -282,5 +283,30 @@ export default StyleSheet.create({
   },
   actionText: {
     color: "#fff"
+  },
+
+  //Accordion Styles
+  accordionTitle: {
+    fontSize: 14,
+    fontWeight: "bold"
+  },
+  accordionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 46,
+    paddingLeft: 25,
+    paddingRight: 18,
+    alignItems: "center",
+    backgroundColor: "rgb(255,255,255)" //Charcoal
+  },
+  accordionParentHr: {
+    height: 1,
+    color: "#fff",
+    width: "100%"
+  },
+  accordionChild: {
+    backgroundColor: "#fff", //Light grey
+    opacity: 0.9,
+    padding: 16
   }
 });
