@@ -7,7 +7,7 @@ import db from "app/db/scripts/User.js";
 import styles from "app/cstyles/android/androidStyles.js";
 import CustomModal from "app/components/user-setup/CustomModal";
 
-const UserType = props => {
+const UserType = (props) => {
   /***********************************************************************************/
   // States
   const [modalVisible, setModalVisible] = useState(false); //State for our modal
@@ -15,11 +15,11 @@ const UserType = props => {
 
   /***********************************************************************************/
   // Functional components
-  const modalVisibleHandler = v => {
+  const modalVisibleHandler = (v) => {
     setModalVisible(v);
   };
 
-  const userTypeHandler = v => {
+  const userTypeHandler = (v) => {
     db.updateUserType(v);
     props.onNext();
     readUserDetails();
@@ -57,7 +57,7 @@ const UserType = props => {
       {/***********************************************************************************************/}
       {/* JUST LEARNING BUTTON */}
       <TouchableOpacity
-        style={styles.button4}
+        style={styles.userTypeBtn}
         onPress={() => {
           // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_LEARNING);
@@ -69,7 +69,7 @@ const UserType = props => {
       {/***********************************************************************************************/}
       {/* PARENT / GUARDIAN BUTTON */}
       <TouchableOpacity
-        style={styles.button4}
+        style={styles.userTypeBtn}
         onPress={() => {
           // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_PARENT_GUARDIAN);
@@ -81,7 +81,7 @@ const UserType = props => {
       {/***********************************************************************************************/}
       {/* AVO HOLDER BUTTON */}
       <TouchableOpacity
-        style={styles.button4}
+        style={styles.userTypeBtn}
         onPress={() => {
           // modalVisibleHandler(true);
           userTypeHandler(Constants.USER_TYPE_AVO_HOLDER);

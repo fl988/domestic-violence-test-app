@@ -9,7 +9,7 @@ import HomeDashboard from "app/components/HomeDashboard";
 
 export default class App extends Component {
   state = {
-    userLanding: <HomeDashboard />
+    userLanding: <HomeDashboard />,
   };
 
   //"componentDidMount" will execute automatically before render()
@@ -28,7 +28,7 @@ export default class App extends Component {
     let isUserAlreadySet = await db.checkUserSetUp();
     if (isUserAlreadySet) {
       this.setState({
-        userLanding: <HomeDashboard />
+        userLanding: <HomeDashboard />,
       });
     } else {
       this.setState({
@@ -51,10 +51,13 @@ export default class App extends Component {
 Git Hub Command Line
   Modified Files
   - 'git status' to see whats up
-  - 'git commit -am "your message"' to bundle your modified changes ready to be pushed into your github repository.
+  - 'git commit -am "your message"' to bundle your modified changes ready to be pushed into your github repository. Note: your changes are not yet in the repository.
 
   New Files and Folders
   - 'git status' to see the list of folders and files
-  - 'git add <file OR folder>' to add it in to your local repository officially
+  - 'git add <file OR folder>' to add it in to your local repository officially. EXAMPLE: git add components/Constants.js
   - 'git commit -am "your message" to bundle your new file/folder and be ready to be pushed into your githb  repository.
+
+  Checking in your changes.
+  - 'git commit origin master' this is the code you need to push in your changes into github.
 */

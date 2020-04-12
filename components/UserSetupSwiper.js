@@ -17,7 +17,7 @@ export default class UserSetupSwiper extends Component {
   state = {
     /*Can add some stuff here later*/
     modalVisible: false,
-    userDetails: ""
+    userDetails: "",
   };
 
   // Array of pages with defined keys and values
@@ -26,7 +26,7 @@ export default class UserSetupSwiper extends Component {
       title: "What are your Intitials?",
       description: "Since this is your first time, we'll need to know a little bit about you.", // prettier-ignore
       bgColor: "#34236E",
-      component: <InitialsInput onNext={() => this.refs.swiper.scrollBy(1)} />
+      component: <InitialsInput onNext={() => this.refs.swiper.scrollBy(1)} />,
     },
     {
       title: "What is your date of birth?",
@@ -38,23 +38,23 @@ export default class UserSetupSwiper extends Component {
       title: "What type of user are you?",
       description: "Please choose one.",
       bgColor: "#692769",
-      component: <UserType onNext={() => this.refs.swiper.scrollBy(1)} />
+      component: <UserType onNext={() => this.refs.swiper.scrollBy(1)} />,
     },
     {
       title: "Please check which conditions apply to you.",
       //   description: "Please choose one.",
       bgColor: "#56203b",
-      component: <Conditions />
-    }
+      component: <Conditions />,
+    },
   ];
 
   forceUpdateHandler = () => {
     console.log("");
   };
 
-  modalVisibleHandler = v => {
+  modalVisibleHandler = (v) => {
     this.setState({
-      modalVisible: v
+      modalVisible: v,
     });
     this.readUserDetails();
   };
@@ -84,13 +84,13 @@ export default class UserSetupSwiper extends Component {
     }
   }
 
-  screenNavButtonsHandler = i => {
+  screenNavButtonsHandler = (i) => {
     let component = (
       <View style={styles.navBackButton}>
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
           }}
         >
           <Icon

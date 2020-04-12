@@ -1,6 +1,7 @@
 /*
 Dependencies: 
     - native-base@2.13.8
+    ------react-navigation@1.0.0-beta.23
     - @react-navigation/native
     - @react-navigation/drawer
     - react-native-reanimated
@@ -26,22 +27,13 @@ export default class HomeDashboard extends Component {
   }
 }
 
-const test = () => {
-  return (
-    <Image
-      style={styles.drawerImage}
-      source={require("app/assets/ProfilePicture.jpeg")}
-    />
-  );
-};
-
 const MyDrawer = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Feed"
       drawerStyle={{
         backgroundColor: "#c6cbef",
-        width: 240
+        width: 240,
       }}
     >
       {/* Only Drawer.Screen are allowed here. Nothing else! */}
@@ -63,6 +55,6 @@ styles = StyleSheet.create({
   drawerImage: {
     height: 150,
     width: 150,
-    borderRadius: 75
-  }
+    borderRadius: 75,
+  },
 });

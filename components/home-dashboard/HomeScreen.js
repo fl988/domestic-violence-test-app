@@ -10,7 +10,7 @@ class HomeScreen extends Component {
         source={require("app/assets/ProfilePicture.jpeg")}
         style={{ height: 50, width: 50 }}
       />
-    )
+    ),
   };
   render() {
     return (
@@ -27,7 +27,7 @@ class HomeScreen extends Component {
           contentContainerStyle={{
             flex: 1,
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <Text> HomeScreen </Text>

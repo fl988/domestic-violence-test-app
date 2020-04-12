@@ -16,11 +16,11 @@ export default class Accordion extends Component {
       id: props.id,
       conditionDescComponent: props.data,
       expanded: false,
-      isChecked: false
+      isChecked: false,
     };
   }
 
-  conditionKeyHandler = v => {
+  conditionKeyHandler = (v) => {
     var conditionNum = v + 1;
 
     if (v == 0) {
@@ -53,7 +53,7 @@ export default class Accordion extends Component {
             title="Click Here"
             onClick={() => {
               this.setState({
-                isChecked: !this.state.isChecked
+                isChecked: !this.state.isChecked,
               });
               this.conditionKeyHandler(this.state.id);
             }}

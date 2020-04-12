@@ -4,14 +4,14 @@ import {
   Text,
   TextInput,
   Keyboard,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 // Database
 import db from "app/db/scripts/User.js";
 // Styles
 import myStyles from "app/cstyles/android/androidStyles.js";
 
-const InitialsInput = props => {
+const InitialsInput = (props) => {
   /***********************************************************************************/
   // States
   const [getInitialsEntered, setInitialsEntered] = useState(""); // "" by default.
@@ -19,7 +19,7 @@ const InitialsInput = props => {
 
   /***********************************************************************************/
   // Functional components
-  const initialsInputHandler = userInput => {
+  const initialsInputHandler = (userInput) => {
     setButtonHideStatus(userInput.length >= 2 ? true : false);
     if (userInput.length >= 3) {
       return;
@@ -27,7 +27,7 @@ const InitialsInput = props => {
     setInitialsEntered(userInput.toUpperCase().replace(/[^a-zA-Z ]/g, "")); //Turn it to upper case then only accept A-z
   };
 
-  const onNextHandler = userInitials => {
+  const onNextHandler = (userInitials) => {
     Keyboard.dismiss(); //Dismiss the keyboard.
     props.onNext(); //Swipe to next page.
     db.updateUserInitials(userInitials);
@@ -39,7 +39,7 @@ const InitialsInput = props => {
   if (getButtonHideStatus) {
     button = (
       <TouchableOpacity
-        style={myStyles.button2}
+        style={myStyles.nextBtnV2}
         onPress={() => onNextHandler(getInitialsEntered)}
       >
         <Text style={myStyles.buttonText}>{"NEXT"}</Text>
@@ -63,7 +63,7 @@ const InitialsInput = props => {
 
       <View>
         <TouchableOpacity
-          style={myStyles.button2}
+          style={myStyles.nextBtnV2}
           onPress={() => onNextHandler(getInitialsEntered)}
         >
           <Text style={myStyles.buttonText}>{"NEXT"}</Text>

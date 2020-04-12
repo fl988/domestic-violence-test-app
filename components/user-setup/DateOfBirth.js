@@ -7,7 +7,7 @@ import db from "app/db/scripts/User.js";
 // Styles
 import styles from "app/cstyles/android/androidStyles.js";
 
-const DateOfBirth = props => {
+const DateOfBirth = (props) => {
   /***********************************************************************************/
   // States
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -24,7 +24,7 @@ const DateOfBirth = props => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const handleConfirm = (date) => {
     //console.warn("A date has been picked: ", date);
     hideDatePicker();
 
@@ -34,7 +34,7 @@ const DateOfBirth = props => {
     setButtonHideStatus(true);
   };
 
-  const onNextHandler = dateDisplay => {
+  const onNextHandler = (dateDisplay) => {
     props.onNext(); //Swipe to next page.
     db.updateUserDOB(getDateDisplay.toString());
   };
@@ -42,14 +42,14 @@ const DateOfBirth = props => {
   /***********************************************************************************/
   // The "Next" button shows once the user successfully entered their DOB.
   var nextBtn = (
-    <TouchableOpacity style={styles.testbtn}>
+    <TouchableOpacity style={styles.nextBtn}>
       <Text style={styles.buttonText}></Text>
     </TouchableOpacity>
   );
   if (getButtonHideStatus) {
     nextBtn = (
       <TouchableOpacity
-        style={styles.button2}
+        style={styles.nextBtnV2}
         onPress={() => onNextHandler(getDateDisplay)}
       >
         <Text style={styles.buttonText}>{"NEXT"}</Text>

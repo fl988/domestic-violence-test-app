@@ -1,176 +1,94 @@
 import React, { useState } from "react";
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import Accordion from "app/components/user-setup/Accordion";
+import * as Constants from "app/components/Constants.js";
 
-// Database
-import db from "app/db/scripts/User.js";
 // Styles
 import styles from "app/cstyles/android/androidStyles.js";
 
-const Conditions = props => {
+const contentful = require("app/node_modules/contentful/dist/contentful.browser.min.js");
+const client = contentful.createClient({
+  space: Constants.AUTH_SPACE_ID,
+  accessToken: Constants.AUTH_ACCESS_TOKEN_DELIVERY,
+});
+
+// This API call will request an entry with the specified ID from the space defined at the top, using a space-specific access token. ie. the Conditions.
+// We then start building our own custom json object array.
+var conditionsArr = [];
+client
+  .getEntry(Constants.CONT_CONDITIONS)
+  .then((entry) =>
+    Object.values(entry.fields).forEach((v, i) => {
+      const accordionHeader = "Condition " + (i + 1);
+      const accordionBody = <Text>{v}</Text>;
+      const objLength = Object.values(entry.fields).length;
+      if (i == 0) {
+        // The first mandatory condition. Can never be unchecked.
+        conditionsArr[i] = {
+          title: accordionHeader,
+          data: accordionBody,
+          mandatory: true,
+        };
+      } else if (i == objLength - 1) {
+        // This is condition 11 which is a special condition.
+        conditionsArr[i] = {
+          title: accordionHeader,
+          data: accordionBody,
+          specialCondition: true,
+        };
+      } else {
+        conditionsArr[i] = {
+          title: accordionHeader,
+          data: accordionBody,
+        };
+      }
+    })
+  )
+  .catch((err) => console.log(err));
+
+const Conditions = (props) => {
   /***********************************************************************************/
   // States
 
+  // For now we are hard-coding this special condition.
+  conditionsArr[10] = {
+    title: "Condition 11",
+    data: <Text>"A special condition."</Text>,
+    specialCondition: true,
+  };
+
   /***********************************************************************************/
-  // JSON obj array
-  const jsonData = [
-    {
-      title: "Condition 1",
-      data: (
-        <View>
-          <Text>
-            {
-              "You must not do any of the following to <<protected people>>, or anyone <<she/he/they>> <<has/have>> a domestic relationship with:"
-            }
-          </Text>
-          <Text style={{ paddingLeft: 12, paddingTop: 12 }}>
-            {"A. assult or threaten <<her/him/them>>"}
-          </Text>
-
-          <Text style={{ paddingLeft: 12, paddingTop: 12 }}>
-            {"B. stalk, harass, or intimidate <<her/him/them>>"}
-          </Text>
-
-          <Text style={{ paddingLeft: 12, paddingTop: 12 }}>
-            {
-              "C. intentionall or recklessly destroy or damage any property that belongs to or is in the possession of <<protected people>>."
-            }
-          </Text>
-        </View>
-      ),
-      mandatory: true
-    },
-    {
-      title: "Condition 2",
-      data: (
-        <Text>
-          "Pizza is a savory dish of Italian origin, consisting of a usually
-          round, flattened base of leavened wheat-based dough topped with
-          tomatoes, cheese, and various other ingredients (anchovies, olives,
-          meat, etc.) baked at a high temperature, traditionally in a wood-fired
-          oven. In formal settings, like a restaurant, pizza is eaten with knife
-          and fork, but in casual settings it is cut into wedges to be eaten
-          while held in the hand. Small pizzas are sometimes called pizzettas."
-        </Text>
-      )
-    },
-    {
-      title: "Condition 3",
-      data: (
-        <Text>
-          "A drink (or beverage) is a liquid intended for human consumption. In
-          addition to their basic function of satisfying thirst, drinks play
-          important roles in human culture. Common types of drinks include plain
-          drinking water, milk, coffee, tea, hot chocolate, juice and soft
-          drinks. In addition, alcoholic drinks such as wine, beer, and liquor,
-          which contain the drug ethanol, have been part of human culture for
-          more than 8,000 years."
-        </Text>
-      )
-    },
-    {
-      title: "Condition 4",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 5",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 6",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 7",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 8",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 9",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 10",
-      data: (
-        <Text>
-          'A dessert is typically the sweet course that concludes a meal in the
-          culture of many countries, particularly Western culture. The course
-          usually consists of sweet foods, but may include other items. The word
-          "dessert" originated from the French word desservir "to clear the
-          table" and the negative of the Latin word servire'
-        </Text>
-      )
-    },
-    {
-      title: "Condition 11",
-      data: <Text>"A special condition."</Text>,
-      specialCondition: true
-    }
-  ];
+  // functional functions
 
   const renderAccordians = () => {
     const items = [];
-    for (let x = 0; x < jsonData.length; x++) {
+    if (typeof conditionsArr[0] !== "undefined") {
+      for (let x = 0; x < conditionsArr.length; x++) {
+        items.push(
+          <Accordion
+            id={x}
+            key={x}
+            title={conditionsArr[x].title}
+            data={conditionsArr[x].data}
+            mandatory={conditionsArr[x].mandatory}
+            specialCondition={conditionsArr[x].specialCondition}
+          />
+        );
+      }
+    } else {
       items.push(
-        <Accordion
-          id={x}
-          key={x}
-          title={jsonData[x].title}
-          data={jsonData[x].data}
-          mandatory={jsonData[x].mandatory}
-          specialCondition={jsonData[x].specialCondition}
-        />
+        <Text
+          key={0}
+          style={{
+            fontWeight: "bold",
+            color: "#fff",
+            backgroundColor: "transparent",
+            textAlign: "center",
+          }}
+        >
+          This device's Internet connection appears to be offline. Please check
+          your Internet connection and try to come back to this page again.
+        </Text>
       );
     }
 
