@@ -49,6 +49,17 @@ export default class App extends Component {
 
 /*
 Git Hub Command Line
+  If you're making changes please do this steps.
+  Create a new branch and switch to it using this code
+    - git checkout -b my_feature_that_i_want_to_add
+  When you are finished you can switch back to master
+    - git checkout master
+  You can then decide to either add those changes into master or delete it
+    - Adding your changes use this
+      - git push origin my_feature_that_i_want_to_add
+    - Deleting your changes use this
+      - git branch -d my_feature_that_i_want_to_add
+
   Modified Files
   - 'git status' to see whats up
   - 'git commit -am "your message"' to bundle your modified changes ready to be pushed into your github repository. Note: your changes are not yet in the repository.
@@ -59,5 +70,5 @@ Git Hub Command Line
   - 'git commit -am "your message" to bundle your new file/folder and be ready to be pushed into your githb  repository.
 
   Checking in your changes.
-  - 'git commit origin master' this is the code you need to push in your changes into github.
+  - 'git push origin master' this is the code you need to push in your changes into github.
 */
