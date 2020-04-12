@@ -49,16 +49,17 @@ export default class App extends Component {
 
 /*
 Git Hub Command Line
-  If you're making changes please do this steps.
-  Create a new branch and switch to it using this code
-    - git checkout -b my_feature_that_i_want_to_add
-  When you are finished you can switch back to master
-    - git checkout master
-  You can then decide to either add those changes into master or delete it
-    - Adding your changes use this
-      - git push origin my_feature_that_i_want_to_add
-    - Deleting your changes use this
-      - git branch -d my_feature_that_i_want_to_add
+  If you're making changes please do the following steps.
+    Create a new branch and switch to it using the code below.
+      - git checkout -b my_feature_that_i_want_to_add
+    When you are finished you can switch back to master
+      - git checkout master
+    You can then decide to either add those changes into master or delete it
+      - Adding your changes use this
+        - git push origin my_feature_that_i_want_to_add
+      - Deleting your changes use this
+        - git branch -d my_feature_that_i_want_to_add
+    It is advisable to delete your branch once you're done with it.
 
   Modified Files
   - 'git status' to see whats up
