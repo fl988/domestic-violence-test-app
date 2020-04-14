@@ -28,7 +28,7 @@ export default class App extends Component {
     this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
   };
 
-  //This function is only invoked when a user has successfully confirmed their details are all correct by pressing the "Yes" button upon confirmation.
+  //This will delete the whole "user" table. That means you will be able to mock up the registration process again and again
   deleteAccountHandler = () => {
     db.dropUser(); //delete user table.
     db.setUpUserTable(); //set-up user table.
