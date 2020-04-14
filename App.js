@@ -8,7 +8,11 @@ import UserSetupSwiper from "app/components/UserSetupSwiper";
 import HomeDashboard from "app/components/HomeDashboard";
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
+    // by default, we send the user to the home dashboard.
     userLanding: <HomeDashboard />,
   };
 
@@ -24,11 +28,20 @@ export default class App extends Component {
     this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
   };
 
+  //This function is only invoked when a user has successfully confirmed their details are all correct by pressing the "Yes" button upon confirmation.
+  deleteAccountHandler = () => {
+    db.dropUser();
+    db.setUpUserTable();
+    this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
+  };
+
   async checkUser() {
     let isUserAlreadySet = await db.checkUserSetUp();
     if (isUserAlreadySet) {
       this.setState({
-        userLanding: <HomeDashboard />,
+        userLanding: (
+          <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} />
+        ),
       });
     } else {
       this.setState({

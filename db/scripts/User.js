@@ -10,10 +10,13 @@ class User {
   checkUserSetUp() {
     return new Promise((resolve, reject) => {
       try {
-        db.transaction(tx => {
-          tx.executeSql("SELECT userSetUp FROM user;", [], (trans, rs) => {
-            resolve(rs.rows.item(0).userSetUp == true);
-          });
+        db.transaction((tx) => {
+          tx.executeSql(
+            "SELECT userSetUp FROM user;",
+            [],
+            (trans, rs) => { resolve(rs.rows.item(0).userSetUp == true); }, // prettier-ignore
+            (tx, error) => { resolve(false); } // prettier-ignore
+          );
         });
       } catch (error) {}
     });
@@ -24,24 +27,31 @@ class User {
   grabUserConditionsAsArray() {
     return new Promise((resolve, reject) => {
       try {
-        db.transaction(tx => {
-          tx.executeSql("SELECT * FROM user;", [], (trans, rs) => {
-            let item = rs.rows.item(0);
-            let conditionArr = [
-              item.condition1,
-              item.condition2,
-              item.condition3,
-              item.condition4,
-              item.condition5,
-              item.condition6,
-              item.condition7,
-              item.condition8,
-              item.condition9,
-              item.condition10,
-              item.condition11
-            ];
-            resolve(conditionArr);
-          });
+        db.transaction((tx) => {
+          tx.executeSql(
+            "SELECT * FROM user;",
+            [],
+            (trans, rs) => {
+              let item = rs.rows.item(0);
+              let conditionArr = [
+                item.condition1,
+                item.condition2,
+                item.condition3,
+                item.condition4,
+                item.condition5,
+                item.condition6,
+                item.condition7,
+                item.condition8,
+                item.condition9,
+                item.condition10,
+                item.condition11,
+              ];
+              resolve(conditionArr);
+            },
+            (tx, error) => {
+              console.log("error grabUserConditionsAsArray = " + error);
+            }
+          );
         });
       } catch (error) {}
     });
@@ -52,10 +62,13 @@ class User {
   grabUserDetails() {
     return new Promise((resolve, reject) => {
       try {
-        db.transaction(tx => {
-          tx.executeSql("SELECT * FROM user;", [], (trans, rs) => {
-            resolve(rs);
-          });
+        db.transaction((tx) => {
+          tx.executeSql(
+            "SELECT * FROM user;",
+            [],
+            (trans, rs) => { resolve(rs); }, // prettier-ignore
+            (tx, error) => { console.log("error grabUserDetails = " + error); } // prettier-ignore
+          );
         });
       } catch (error) {}
     });
@@ -66,7 +79,7 @@ class User {
   createUser() {
     try {
       db.transaction(
-        tx => {
+        (tx) => {
           tx.executeSql(
             "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY NOT NULL, initials TEXT DEFAULT 'XX', dob TEXT DEFAULT (datetime('now')), userTypeId INT DEFAULT 0, userSetUp BOOLEAN DEFAULT 0, " +
               " condition1 BOOLEAN DEFAULT 1, " +
@@ -82,27 +95,23 @@ class User {
               " condition11 BOOLEAN DEFAULT 0 " +
               ");",
             [],
-            function(tx, success) {/* success */}, // prettier-ignore
-            function(tx, error) {
-              console.log("error createUser = " + error);
-            }
+            (tx, success) => {/* success */}, // prettier-ignore
+            (tx, error) => { console.log("error createUser = " + error); } // prettier-ignore
           );
         },
         (tx, err) => {
           console.log(err);
         }
       );
-    } catch (error) {
-      console.log("FAIL CREATE USER");
-    }
+    } catch (error) {}
   }
 
   /****************************************************************************************************************************************************/
   //Drops table 'user'. No return;
   dropUser() {
     try {
-      db.transaction(tx => {
-        tx.executeSql("DROP TABLE user");
+      db.transaction((tx) => {
+        tx.executeSql("DROP TABLE IF EXISTS user");
       });
     } catch (error) {}
   }
@@ -112,14 +121,14 @@ class User {
   insertUserDefaultRecord() {
     try {
       db.transaction(
-        tx => {
+        (tx) => {
           tx.executeSql(
             "INSERT INTO " +
               " user(initials, dob, userTypeId) " +
               " VALUES('','','')",
             [],
             function(tx, success) {/* success */}, // prettier-ignore
-            function(tx, error) {
+            function (tx, error) {
               console.log("error insertUserDefaultRecord = " + error);
             }
           );
@@ -136,15 +145,17 @@ class User {
   setUpUserTable() {
     try {
       db.transaction(
-        txn => {
+        (txn) => {
           txn.executeSql("SELECT * FROM user", [], (tx, rs) => {
             //console.log("item:", rs.rows.length);
             if (rs.rows.length == 0) {
+              // No rows found on the 'user' table. We then drop if user table exist, create user table then insert a default record.
               this.dropUser();
               this.createUser();
               this.insertUserDefaultRecord();
             } else if (rs.rows.length > 1) {
-              txn.executeSql("DELETE FROM user WHERE id > 1;", []); //I think there is an sql bug where it duplicates records hence having more than 1 row. We delete them here.
+              //I think there is an sql bug where it duplicates records hence having more than 1 row. We delete them here.
+              txn.executeSql("DELETE FROM user WHERE id > 1;", []);
             }
           });
         },
@@ -165,7 +176,7 @@ class User {
   // update 'user' initials, no return;
   updateUserInitials(v) {
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql("UPDATE USER SET initials = ? WHERE id = 1;", [v]);
       });
     } catch (error) {}
@@ -173,7 +184,7 @@ class User {
   // update 'user' dob, no return;
   updateUserDOB(v) {
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql("UPDATE USER SET dob = ? WHERE id = 1;", [v]);
       });
     } catch (error) {}
@@ -181,7 +192,7 @@ class User {
   // update 'user' userTypeId, no return;
   updateUserType(v) {
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql("UPDATE USER SET userTypeId = ? WHERE id = 1;", [v]);
       });
     } catch (error) {}
@@ -189,11 +200,9 @@ class User {
 
   // updates 'user' condition(s), no return;
   updateUserConditions(conditionNum, conditionValue) {
-    console.log(
-      "conditionNum: " + conditionNum + " conditionValue: " + conditionValue
-    );
+    // console.log( "conditionNum: " + conditionNum + " conditionValue: " + conditionValue );
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql(
           "UPDATE USER SET condition" + conditionNum + " = ? WHERE id = 1;",
           [conditionValue]
@@ -205,14 +214,12 @@ class User {
   // update 'user' userSetUp, no return;
   updateUserSetUp() {
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql(
           "UPDATE USER SET userSetUp = 1 WHERE id = 1;",
           [],
           function(tx, success) {/* success */}, // prettier-ignore
-          function(tx, error) {
-            console.log("error insertUserDefaultRecord = " + error);
-          }
+          function (tx, error) {/* fail */} // prettier-ignore
         );
       });
     } catch (error) {}
@@ -228,7 +235,7 @@ class User {
   //Create Table 'user'Type. No return;
   createUserType() {
     try {
-      db.transaction(tx => {
+      db.transaction((tx) => {
         tx.executeSql(
           "CREATE TABLE IF NOT EXISTS userType (id INTEGER PRIMARY KEY NOT NULL, userTypeId INT, description TEXT);"
         );
@@ -239,7 +246,7 @@ class User {
   grabUserDetailsOnConsole() {
     return new Promise((resolve, reject) => {
       try {
-        db.transaction(tx => {
+        db.transaction((tx) => {
           tx.executeSql("SELECT * FROM user;", [], (trans, rs) => {
             if (rs != null) {
               for (let x = 0; x < rs.rows.length; x++) {
@@ -258,7 +265,7 @@ class User {
   getUserTableRowCount() {
     return new Promise((resolve, reject) => {
       try {
-        db.transaction(tx => {
+        db.transaction((tx) => {
           tx.executeSql(
             "SELECT count(*) as cnt FROM user;",
             [],

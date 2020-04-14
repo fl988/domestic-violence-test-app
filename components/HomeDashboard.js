@@ -7,54 +7,90 @@ Dependencies:
     - react-native-reanimated
 */
 
-import React, { Component } from "react";
-import { StyleSheet, Image } from "react-native";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+  createDrawerNavigator,
+} from "@react-navigation/drawer"; // https://reactnavigation.org/docs/drawer-navigator/
 
 import HomeScreen from "app/components/home-dashboard/HomeScreen";
 import SettingsScreen from "app/components/home-dashboard/SettingsScreen";
 
 const Drawer = createDrawerNavigator();
 
-export default class HomeDashboard extends Component {
+export default class HomeDashboard extends React.Component {
+  MyDrawer = () => {
+    return (
+      <Drawer.Navigator
+        drawerContent={(props) => <this.CustomDrawerContent {...props} />}
+      >
+        {/* Add non-custom drawers here */}
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ drawerLabel: "Home" }}
+          drawerStyle={styles.drawerItem}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ drawerLabel: "Settings" }}
+        />
+      </Drawer.Navigator>
+    );
+  };
+
+  CustomDrawerContent = (props) => {
+    return (
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+        {/* https://reactnavigation.org/docs/drawer-navigator/#providing-a-custom-drawercontent */}
+        {/* Add your custom <DrawerItem> below here */}
+        <DrawerItem
+          label={() => (
+            <Text style={{ color: "#fff" }}>{"Delete Account"}</Text>
+          )}
+          style={{ backgroundColor: "#f44336" }} //red-orange
+        />
+      </DrawerContentScrollView>
+    );
+  };
+
   render() {
     return (
       <NavigationContainer>
-        <MyDrawer />
+        <this.MyDrawer />
       </NavigationContainer>
     );
   }
 }
-
-const MyDrawer = () => {
-  return (
-    <Drawer.Navigator
-      initialRouteName="Feed"
-      drawerStyle={{
-        backgroundColor: "#c6cbef",
-        width: 240,
-      }}
-    >
-      {/* Only Drawer.Screen are allowed here. Nothing else! */}
-      <Drawer.Screen
-        name="Feed"
-        component={HomeScreen}
-        options={{ drawerLabel: "Home" }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ drawerLabel: "Settings" }}
-      />
-    </Drawer.Navigator>
-  );
-};
 
 styles = StyleSheet.create({
   drawerImage: {
     height: 150,
     width: 150,
     borderRadius: 75,
+  },
+  drawerItem: {
+    marginLeft: 15,
+    marginTop: 25,
+    fontSize: 22,
+    fontWeight: "500",
+    color: "black",
+    flexDirection: "row",
+  },
+  drawerItemText: {
+    fontSize: 18.7,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    lineHeight: 18.7,
+    letterSpacing: 0.33,
+    color: "#1d1d26",
+    padding: 10,
+    marginLeft: 25,
   },
 });
