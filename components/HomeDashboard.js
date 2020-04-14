@@ -55,6 +55,7 @@ export default class HomeDashboard extends React.Component {
             <Text style={{ color: "#fff" }}>{"Delete Account"}</Text>
           )}
           style={{ backgroundColor: "#f44336" }} //red-orange
+          onPress={this.props.deleteAccountHandler}
         />
       </DrawerContentScrollView>
     );

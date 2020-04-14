@@ -30,9 +30,9 @@ export default class App extends Component {
 
   //This function is only invoked when a user has successfully confirmed their details are all correct by pressing the "Yes" button upon confirmation.
   deleteAccountHandler = () => {
-    db.dropUser();
-    db.setUpUserTable();
-    this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
+    db.dropUser(); //delete user table.
+    db.setUpUserTable(); //set-up user table.
+    this.checkUser(); //check which component should the user see.
   };
 
   async checkUser() {
