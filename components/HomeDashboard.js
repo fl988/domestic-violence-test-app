@@ -8,7 +8,12 @@ Dependencies:
 */
 
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  useWindowDimensions,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   DrawerContentScrollView,
@@ -35,6 +40,9 @@ export default class HomeDashboard extends React.Component {
   };
 
   MyDrawer = () => {
+    const dimensions = useWindowDimensions();
+    const isLargeScreen = dimensions.width >= 768;
+
     return (
       <Drawer.Navigator
         drawerContent={(props) => <this.CustomDrawerContent {...props} />}
@@ -57,19 +65,34 @@ export default class HomeDashboard extends React.Component {
 
   CustomDrawerContent = (props) => {
     return (
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-        {/* https://reactnavigation.org/docs/drawer-navigator/#providing-a-custom-drawercontent */}
-        {/* Add your custom <DrawerItem> below here */}
-        <DrawerItem
-          label={() => (
-            <Text style={{ color: "#fff" }}>{"Delete Account"}</Text>
-          )}
-          style={{ backgroundColor: "#f44336" }} //red-orange
-          onPress={() => {
-            this.modalVisibleHandler(true);
-          }}
-        />
+      <DrawerContentScrollView
+        {...props}
+        contentContainerStyle={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
+          <DrawerItemList {...props} />
+          {/* https://reactnavigation.org/docs/drawer-navigator/#providing-a-custom-drawercontent */}
+          {/* Add your custom <DrawerItem> below here */}
+        </SafeAreaView>
+        <SafeAreaView forceInset={{ bottom: "always", horizontal: "never" }}>
+          {/* ONLY add components below here IF you want a particular component to be positioned on the bottom of the left navigation. To test it out, uncomment the <DrawerItem> below by highlighting it then press "CTRL + /forward-slash" */}
+          {/* <DrawerItem
+            label={() => <Text style={{ color: "#black" }}>{"Test"}</Text>}
+          /> */}
+          <DrawerItem
+            label={() => (
+              <Text style={{ color: "#fff" }}>{"Delete Account"}</Text>
+            )}
+            style={{ backgroundColor: "#f44336" }} //red-orange
+            onPress={() => {
+              this.modalVisibleHandler(true);
+            }}
+          />
+        </SafeAreaView>
       </DrawerContentScrollView>
     );
   };
@@ -115,5 +138,23 @@ styles = StyleSheet.create({
     color: "#1d1d26",
     padding: 10,
     marginLeft: 25,
+  },
+  item: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  label: {
+    margin: 16,
+    fontWeight: "bold",
+    color: "rgba(0, 0, 0, .87)",
+  },
+  iconContainer: {
+    marginHorizontal: 16,
+    width: 24,
+    alignItems: "center",
+  },
+  icon: {
+    width: 24,
+    height: 24,
   },
 });

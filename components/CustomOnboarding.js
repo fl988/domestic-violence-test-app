@@ -12,11 +12,8 @@ export default CustomOnboarding = (props) => {
     } else {
       backgroundColor = selected ? "#fff" : "rgba(255, 255, 255, 0.5)";
     }
-    return (
-      <View
-        style={{ width: 6, height: 6, marginHorizontal: 3, backgroundColor }}
-      />
-    );
+
+    return <View style={{ width: 6, height: 6, marginHorizontal: 3, backgroundColor }}/> // prettier-ignore
   };
 
   const PAGES = [
@@ -29,13 +26,13 @@ export default CustomOnboarding = (props) => {
     {
       title: "Send Messages",
       subtitle: "You can reach everybody with us",
-      backgroundColor: "#5e92f3",
+      backgroundColor: "#003c8f",
       image: <Icon name="paper-plane-o" type="font-awesome" size={100} color="white" /> //prettier-ignore
     },
     {
       title: "Get Notified",
       subtitle: "We will send you notification as soon as something happened",
-      backgroundColor: "#1565c0",
+      backgroundColor: "#003c8f",
       image: <Icon name="bell-o" type="font-awesome" size={100} color="white" /> //prettier-ignore
     },
     {

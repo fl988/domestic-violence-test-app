@@ -5,6 +5,17 @@ const PAGE_HEIGHT = Dimensions.get("window").height;
 const PAGE_WIDTH = Dimensions.get("window").width;
 
 export default StyleSheet.create({
+  /*************************************/
+  // Colors
+  bgPurple1: {
+    backgroundColor: "#663399",
+  },
+  bgPurple2: {
+    backgroundColor: "#5E2399",
+  },
+  /*************************************/
+
+  /*************************************/
   navBackButton: {
     marginTop: PAGE_HEIGHT / 1.2,
     marginLeft: 60,
@@ -151,6 +162,7 @@ export default StyleSheet.create({
     borderRadius: (PAGE_WIDTH - 100) / 2,
   },
 
+  /*************************************/
   // MODAL STYLE
   divider: {
     width: "100%",
@@ -191,7 +203,9 @@ export default StyleSheet.create({
   actionText: {
     color: "#fff",
   },
+  /*************************************/
 
+  /*************************************/
   //Accordion Styles
   accordionTitle: {
     fontSize: 14,
@@ -216,4 +230,5 @@ export default StyleSheet.create({
     opacity: 0.9,
     padding: 16,
   },
+  /*************************************/
 });

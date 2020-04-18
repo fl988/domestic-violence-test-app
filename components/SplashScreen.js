@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, Animated } from "react-native";
+import { Icon } from "react-native-elements";
 import styles from "app/cstyles/android/androidStyles.js";
 
 /*
@@ -11,18 +12,34 @@ export default class SplashScreen extends React.Component {
   //We set 'isLoading' to 'true'
   constructor() {
     super();
-    this.state = { isLoading: true };
+    this.state = { isLoading: true, animation: new Animated.Value(0) };
+  }
+
+  UNSAFE_componentWillMount() {
+    this.startAnimation();
   }
 
   /****************************************************************************************************************************************************/
   //First we create a function that can consume time.
   performTimeConsumingTask = async () => {
     return new Promise(
-      resolve =>
+      (resolve) =>
         setTimeout(() => {
           resolve("Henlo, i'm a fake data."); //This is a fake data that this function will be returning.
-        }, 1250) //We set it to 1250 (ie. 1.25 seconds)
+        }, 1500) //We set it to 1.50 seconds
     );
+  };
+
+  startAnimation = () => {
+    Animated.timing(this.state.animation, {
+      toValue: 0,
+      timing: 400,
+    }).start(() => {
+      Animated.timing(this.state.animation, {
+        toValue: 1,
+        duration: 400,
+      }).start();
+    });
   };
 
   /****************************************************************************************************************************************************/
@@ -43,12 +60,15 @@ export default class SplashScreen extends React.Component {
   render() {
     const viewStyles = [
       styles.splashScreenContainer,
-      { backgroundColor: "orange" }
+      { backgroundColor: "#003c8f" },
     ];
     const textStyles = {
       color: "white",
       fontSize: 40,
-      fontWeight: "bold"
+      fontWeight: "bold",
+    };
+    const animatedStyle = {
+      opacity: this.state.animation,
     };
 
     if (this.state.isLoading) {
@@ -56,7 +76,14 @@ export default class SplashScreen extends React.Component {
       return (
         <View style={styles.screenDimension}>
           <View style={viewStyles}>
-            <Text style={textStyles}>Splash Screen</Text>
+            <Animated.View style={[styles.animatedBox, animatedStyle]}>
+              <Icon
+                name="hand-peace-o"
+                type="font-awesome"
+                size={100}
+                color="white"
+              />
+            </Animated.View>
           </View>
         </View>
       );

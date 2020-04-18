@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, Image } from "react-native";
-import * as Constants from "app/components/Constants.js";
 import { Icon, Container, Header, Content, Left, Right } from "native-base";
+import styles from "app/cstyles/android/androidStyles";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -14,8 +14,8 @@ class HomeScreen extends Component {
   };
   render() {
     return (
-      <Container style={{ paddingTop: Constants.STATUS_BAR_HEIGHT }}>
-        <Header>
+      <Container style={styles.bgPurple1}>
+        <Header style={styles.bgPurple2}>
           <Left>
             <Icon
               name="ios-menu"
@@ -31,7 +31,7 @@ class HomeScreen extends Component {
             justifyContent: "center",
           }}
         >
-          <Text> HomeScreen </Text>
+          <Text style={{ color: "#fff" }}> HomeScreen </Text>
         </Content>
       </Container>
     );

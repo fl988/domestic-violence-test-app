@@ -1,22 +1,23 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, StatusBar } from "react-native";
 import db from "app/db/scripts/User.js";
 import styles from "app/cstyles/android/androidStyles.js";
 import SplashScreen from "app/components/SplashScreen";
 import UserSetupSwiper from "app/components/UserSetupSwiper";
 import HomeDashboard from "app/components/HomeDashboard";
-import CustomOnboarding from "./components/CustomOnboarding";
+import CustomOnboarding from "app/components/CustomOnboarding";
 
 //Github Cheat sheet!
 //https://education.github.com/git-cheat-sheet-education.pdf
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+  /****************************************************************************************************************************************************/
+  // State Hooks: https://reactjs.org/docs/hooks-state.html
   state = {
-    // by default, we npm startsend the user to the home dashboard.
-    userLanding: <HomeDashboard />,
+    userLanding: <HomeDashboard />, // by default, we send the user to the home dashboard.
   };
+
+  /****************************************************************************************************************************************************/
+  // Functions
 
   //"componentDidMount" will execute automatically before render()
   componentDidMount() {
@@ -45,18 +46,14 @@ export default class App extends Component {
   async checkUser() {
     let isUserAlreadySet = await db.checkUserSetUp();
     let isUserCompleteOnboarding = await db.checkUserOnboarding();
+
     if (isUserAlreadySet && isUserCompleteOnboarding) {
       this.setState({
-        userLanding: (
-          <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} />
-        ),
+        userLanding: <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} /> //prettier-ignore
       });
     } else if (isUserAlreadySet && !isUserCompleteOnboarding) {
       this.setState({
-        //prettier-ignore
-        userLanding: (
-          <CustomOnboarding completeUserOnboarding={this.completeUserOnboarding} />
-        )
+        userLanding: <CustomOnboarding completeUserOnboarding={this.completeUserOnboarding} /> //prettier-ignore
       });
     } else {
       this.setState({
@@ -65,9 +62,12 @@ export default class App extends Component {
     }
   }
 
+  /****************************************************************************************************************************************************/
+  // The rendered component
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar hidden />
         <SplashScreen />
         {this.state.userLanding}
       </View>
