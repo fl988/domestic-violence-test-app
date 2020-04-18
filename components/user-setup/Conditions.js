@@ -44,12 +44,12 @@ client
       }
     })
   )
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    /*console.log("ERROR = " + err)*/
+  });
 
 const Conditions = (props) => {
   /***********************************************************************************/
-  // States
-
   // For now we are hard-coding this special condition.
   conditionsArr[10] = {
     title: "Condition 11",

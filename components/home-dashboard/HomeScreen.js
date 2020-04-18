@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, Image } from "react-native";
-
-import { Icon, Container, Header, Content, Left } from "native-base";
+import * as Constants from "app/components/Constants.js";
+import { Icon, Container, Header, Content, Left, Right } from "native-base";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -14,7 +14,7 @@ class HomeScreen extends Component {
   };
   render() {
     return (
-      <Container>
+      <Container style={{ paddingTop: Constants.STATUS_BAR_HEIGHT }}>
         <Header>
           <Left>
             <Icon
@@ -22,6 +22,7 @@ class HomeScreen extends Component {
               onPress={() => this.props.navigation.openDrawer()}
             />
           </Left>
+          <Right />
         </Header>
         <Content
           contentContainerStyle={{
@@ -38,3 +39,9 @@ class HomeScreen extends Component {
 }
 
 export default HomeScreen;
+
+// Status bar issues fix using native-base
+// https://github.com/GeekyAnts/NativeBase/issues/899
+
+// Menu burger icon not staying on the left when using the native-base <Left>
+// When you include a <Left> component you will also HAVE to include it's accompanying counterpart => <Right>

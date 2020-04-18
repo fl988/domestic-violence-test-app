@@ -63,7 +63,6 @@ const DateOfBirth = (props) => {
     <View style={styles.frame}>
       <TouchableOpacity onPress={showDatePicker}>
         <TextInput
-          underlineColorAndroid="transparent"
           placeholder="'Tap' to select date of birth"
           placeholderTextColor="#464950"
           style={styles.input}
@@ -74,9 +73,9 @@ const DateOfBirth = (props) => {
       <View>{nextBtn}</View>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
+        mode="date"
       />
     </View>
   );

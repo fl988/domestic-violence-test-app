@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-
 import db from "app/db/scripts/User.js";
 import styles from "app/cstyles/android/androidStyles.js";
 import SplashScreen from "app/components/SplashScreen";
 import UserSetupSwiper from "app/components/UserSetupSwiper";
 import HomeDashboard from "app/components/HomeDashboard";
+import CustomOnboarding from "./components/CustomOnboarding";
 
+//Github Cheat sheet!
+//https://education.github.com/git-cheat-sheet-education.pdf
 export default class App extends Component {
   constructor(props) {
     super(props);
   }
   state = {
-    // by default, we send the user to the home dashboard.
+    // by default, we npm startsend the user to the home dashboard.
     userLanding: <HomeDashboard />,
   };
 
@@ -28,6 +30,11 @@ export default class App extends Component {
     this.checkUser(); // We now then check the 'userSetUp' value if it's true or false then render the proper components.
   };
 
+  completeUserOnboarding = () => {
+    db.updateUserOnboarding();
+    this.checkUser();
+  };
+
   //This will delete the whole "user" table. That means you will be able to mock up the registration process again and again
   deleteAccountHandler = () => {
     db.dropUser(); //delete user table.
@@ -37,15 +44,23 @@ export default class App extends Component {
 
   async checkUser() {
     let isUserAlreadySet = await db.checkUserSetUp();
-    if (isUserAlreadySet) {
+    let isUserCompleteOnboarding = await db.checkUserOnboarding();
+    if (isUserAlreadySet && isUserCompleteOnboarding) {
       this.setState({
         userLanding: (
           <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} />
         ),
       });
+    } else if (isUserAlreadySet && !isUserCompleteOnboarding) {
+      this.setState({
+        //prettier-ignore
+        userLanding: (
+          <CustomOnboarding completeUserOnboarding={this.completeUserOnboarding} />
+        )
+      });
     } else {
       this.setState({
-        userLanding: <UserSetupSwiper completeUserSetUp={this.completeUserSetUp} /> // prettier-ignore
+        userLanding: <UserSetupSwiper action={this.completeUserSetUp} /> // prettier-ignore
       });
     }
   }

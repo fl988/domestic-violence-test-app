@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
 
-import * as Constants from "app/components/Constants.js";
+// import * as Constants from "app/components/Constants.js";
 import { openDatabase } from "expo-sqlite";
 const db = openDatabase("dbUser");
 
@@ -15,6 +15,23 @@ class User {
             "SELECT userSetUp FROM user;",
             [],
             (trans, rs) => { resolve(rs.rows.item(0).userSetUp == true); }, // prettier-ignore
+            (tx, error) => { resolve(false); } // prettier-ignore
+          );
+        });
+      } catch (error) {}
+    });
+  }
+
+  /****************************************************************************************************************************************************/
+  //Checks if a user has already gone through onboarding. Returns a boolean;
+  checkUserOnboarding() {
+    return new Promise((resolve, reject) => {
+      try {
+        db.transaction((tx) => {
+          tx.executeSql(
+            "SELECT completeOnboarding FROM user;",
+            [],
+            (trans, rs) => { resolve(rs.rows.item(0).completeOnboarding == true); }, // prettier-ignore
             (tx, error) => { resolve(false); } // prettier-ignore
           );
         });
@@ -81,7 +98,7 @@ class User {
       db.transaction(
         (tx) => {
           tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY NOT NULL, initials TEXT DEFAULT 'XX', dob TEXT DEFAULT (datetime('now')), userTypeId INT DEFAULT 0, userSetUp BOOLEAN DEFAULT 0, " +
+            "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY NOT NULL, initials TEXT DEFAULT 'XX', dob TEXT DEFAULT (datetime('now')), userTypeId INT DEFAULT 0, userSetUp BOOLEAN DEFAULT 0, completeOnboarding BOOLEAN DEFAULT 0, " +
               " condition1 BOOLEAN DEFAULT 1, " +
               " condition2 BOOLEAN DEFAULT 0, " +
               " condition3 BOOLEAN DEFAULT 0, " +
@@ -95,7 +112,7 @@ class User {
               " condition11 BOOLEAN DEFAULT 0 " +
               ");",
             [],
-            (tx, success) => {/* success */}, // prettier-ignore
+            (tx, success) => {console.log("SUCCESS! = " + success)/* success */}, // prettier-ignore
             (tx, error) => { console.log("error createUser = " + error); } // prettier-ignore
           );
         },
@@ -220,6 +237,20 @@ class User {
           [],
           function(tx, success) {/* success */}, // prettier-ignore
           function (tx, error) {/* fail */} // prettier-ignore
+        );
+      });
+    } catch (error) {}
+  }
+
+  // update 'user' completeOnboarding, no return;
+  updateUserOnboarding() {
+    try {
+      db.transaction((tx) => {
+        tx.executeSql(
+          "UPDATE USER SET completeOnboarding = 1 WHERE id = 1;",
+          [],
+          function(tx, success) {console.log(success)/* success */}, // prettier-ignore
+          function (tx, error) {console.log(error)/* fail */} // prettier-ignore
         );
       });
     } catch (error) {}

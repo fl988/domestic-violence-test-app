@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Alert } from "react-native";
 import styles from "app/cstyles/android/androidStyles.js";
 
-const CustomModal = props => {
+const CustomModal = (props) => {
   const modalHeader = (
     <View style={styles.modalHeader}>
       <Text style={styles.modalTitle}>{props.modalHeader}</Text>
@@ -30,7 +30,7 @@ const CustomModal = props => {
           style={{ ...styles.actions, backgroundColor: "#21ba45" }}
           onPress={() => {
             props.modalVisibleHandler(!props.modalVisible);
-            props.completeUserSetUp();
+            props.action();
           }}
         >
           <Text style={styles.actionText}>Yes</Text>

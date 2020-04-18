@@ -19,10 +19,21 @@ import {
 
 import HomeScreen from "app/components/home-dashboard/HomeScreen";
 import SettingsScreen from "app/components/home-dashboard/SettingsScreen";
+import CustomModal from "app/components/user-setup/CustomModal";
 
 const Drawer = createDrawerNavigator();
 
 export default class HomeDashboard extends React.Component {
+  state = {
+    modalVisible: false,
+  };
+
+  modalVisibleHandler = (v) => {
+    this.setState({
+      modalVisible: v,
+    });
+  };
+
   MyDrawer = () => {
     return (
       <Drawer.Navigator
@@ -55,7 +66,9 @@ export default class HomeDashboard extends React.Component {
             <Text style={{ color: "#fff" }}>{"Delete Account"}</Text>
           )}
           style={{ backgroundColor: "#f44336" }} //red-orange
-          onPress={this.props.deleteAccountHandler}
+          onPress={() => {
+            this.modalVisibleHandler(true);
+          }}
         />
       </DrawerContentScrollView>
     );
@@ -65,6 +78,15 @@ export default class HomeDashboard extends React.Component {
     return (
       <NavigationContainer>
         <this.MyDrawer />
+        <CustomModal
+          modalVisible={this.state.modalVisible}
+          modalVisibleHandler={this.modalVisibleHandler}
+          action={this.props.deleteAccountHandler}
+          modalHeader={"Confirmation"}
+          modalBody={
+            "Are you sure you want to delete your account? \nAll of your progress will be deleted permanently."
+          }
+        />
       </NavigationContainer>
     );
   }

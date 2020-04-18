@@ -48,10 +48,6 @@ export default class UserSetupSwiper extends Component {
     },
   ];
 
-  forceUpdateHandler = () => {
-    console.log("");
-  };
-
   modalVisibleHandler = (v) => {
     this.setState({
       modalVisible: v,
@@ -121,7 +117,7 @@ export default class UserSetupSwiper extends Component {
 
   render() {
     return (
-      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={true}>
+      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={false}>
         {/* We map the pages, which works like loops. */}
         {this.PAGES.map((page, i) => (
           <View key={i} style={{ flex: 1, backgroundColor: page.bgColor }}>
@@ -132,9 +128,9 @@ export default class UserSetupSwiper extends Component {
             {page.component}
             {this.screenNavButtonsHandler(i)}
             <CustomModal
+              action={this.props.action}
               modalVisible={this.state.modalVisible}
               modalVisibleHandler={this.modalVisibleHandler}
-              completeUserSetUp={this.props.completeUserSetUp}
               modalHeader={"Confirmation"}
               modalBody={
                 "Could you please confirm if your details below are all correct. \n\n" +
