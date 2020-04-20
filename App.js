@@ -6,6 +6,7 @@ import SplashScreen from "app/components/SplashScreen";
 import UserSetupSwiper from "app/components/UserSetupSwiper";
 import HomeDashboard from "app/components/HomeDashboard";
 import CustomOnboarding from "app/components/CustomOnboarding";
+import Modal from "app/components/TestingComponents/Modal";
 
 //Github Cheat sheet!
 //https://education.github.com/git-cheat-sheet-education.pdf
@@ -13,7 +14,7 @@ export default class App extends Component {
   /****************************************************************************************************************************************************/
   // State Hooks: https://reactjs.org/docs/hooks-state.html
   state = {
-    userLanding: <HomeDashboard />, // by default, we send the user to the home dashboard.
+    userLanding: <></>, // by default, we send the user to the home dashboard.
   };
 
   /****************************************************************************************************************************************************/
@@ -67,9 +68,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar hidden />
-        <SplashScreen />
-        {this.state.userLanding}
+        <Modal />
       </View>
     );
   }
