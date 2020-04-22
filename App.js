@@ -6,7 +6,6 @@ import SplashScreen from "app/components/SplashScreen";
 import UserSetupSwiper from "app/components/UserSetupSwiper";
 import HomeDashboard from "app/components/HomeDashboard";
 import CustomOnboarding from "app/components/CustomOnboarding";
-import Modal from "app/components/TestingComponents/Modal";
 
 //Github Cheat sheet!
 //https://education.github.com/git-cheat-sheet-education.pdf
@@ -58,7 +57,7 @@ export default class App extends Component {
       });
     } else {
       this.setState({
-        userLanding: <UserSetupSwiper action={this.completeUserSetUp} /> // prettier-ignore
+        userLanding: [<SplashScreen />,<UserSetupSwiper action={this.completeUserSetUp} /> ] // prettier-ignore
       });
     }
   }
@@ -68,7 +67,8 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Modal />
+        <StatusBar hidden />
+        {this.state.userLanding}
       </View>
     );
   }
