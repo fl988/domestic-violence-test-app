@@ -67,6 +67,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        {/* HELLO IM A NEW CHANGE */}
         <StatusBar hidden />
         {this.state.userLanding}
       </View>
