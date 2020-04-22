@@ -149,6 +149,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
+    flex: 2,
   },
   buttonText: {
     margin: 15,
