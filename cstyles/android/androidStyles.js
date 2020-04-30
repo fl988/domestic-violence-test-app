@@ -105,6 +105,18 @@ export default StyleSheet.create({
     width: PAGE_WIDTH - 100,
     margin: 50,
   },
+  sectionStyle: {
+    flexDirection: "row",
+    margin: 15,
+    height: 40,
+    borderColor: "#fff",
+    borderRadius: 3,
+    backgroundColor: "#fff",
+    opacity: 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
   input: {
     margin: 15,
     height: 40,
