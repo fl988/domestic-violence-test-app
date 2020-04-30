@@ -143,13 +143,12 @@ export default StyleSheet.create({
   },
   userTypeBtn: {
     margin: 15,
-    height: 40,
+    height: 45,
     borderRadius: 3,
     backgroundColor: "rgba(255,255,255, 0.3)",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    flex: 2,
   },
   buttonText: {
     margin: 15,
