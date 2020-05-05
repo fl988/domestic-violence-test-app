@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, Image } from "react-native";
-import { Icon, Container, Header, Content, Left, Right } from "native-base";
+import { Container, Header, Content, Left, Right } from "native-base";
+import { Icon } from "react-native-elements";
 import styles from "app/cstyles/android/androidStyles";
 
 class SettingsScreen extends Component {
@@ -18,7 +19,8 @@ class SettingsScreen extends Component {
         <Header style={styles.bgPurple2}>
           <Left>
             <Icon
-              name="ios-menu"
+              name="bars"
+              type="font-awesome"
               onPress={() => this.props.navigation.openDrawer()}
             />
           </Left>
