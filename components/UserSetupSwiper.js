@@ -117,7 +117,7 @@ export default class UserSetupSwiper extends Component {
 
   render() {
     return (
-      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={false}>
+      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={true}>
         {/* We map the pages, which works like loops. */}
         {this.PAGES.map((page, i) => (
           <View key={i} style={{ flex: 1, backgroundColor: page.bgColor }}>

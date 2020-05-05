@@ -15,7 +15,7 @@ export default class SplashScreen extends React.Component {
     this.state = { isLoading: true, animation: new Animated.Value(0) };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.startAnimation();
   }
 

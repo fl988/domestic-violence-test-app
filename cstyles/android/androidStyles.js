@@ -8,10 +8,10 @@ export default StyleSheet.create({
   /*************************************/
   // Colors
   bgPurple1: {
-    backgroundColor: "#663399",
+    backgroundColor: "#101726",
   },
   bgPurple2: {
-    backgroundColor: "#5E2399",
+    backgroundColor: "#2A1D59",
   },
   /*************************************/
 

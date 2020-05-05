@@ -1,29 +1,29 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   AppRegistry,
   Image,
   StyleSheet,
   View,
   TouchableOpacity,
-  Alert,
   Linking,
   Modal,
   Text,
+  ScrollView,
+  Dimensions,
 } from "react-native";
-import { Icon, Container, Header, Content, Left, Right } from "native-base";
+import { Container, Header, Content, Left, Right } from "native-base";
+import { Icon } from "react-native-elements";
 import styles2 from "app/cstyles/android/androidStyles";
 
-
-
-
+const { width, height } = Dimensions.get("window");
+const PAGE_HEIGHT = Dimensions.get("window").height;
+const PAGE_WIDTH = Dimensions.get("window").width;
 export default class Support extends Component {
-
   state = {
     modalVisible: false,
   };
 
-
-// Beyond Blue 
+  // Beyond Blue
   modalVisibleHandler = (v) => {
     this.setState({
       modalVisible: v,
@@ -32,26 +32,30 @@ export default class Support extends Component {
 
   modalHeader = (
     <View style={styles.modalHeader}>
+      <TouchableOpacity
+        style={{ ...styles.action1 }}
+        onPress={() => {
+          this.modalVisibleHandler(!this.state.modalVisible || false);
+        }}
+      >
+        <Icon
+          containerStyle={styles.closeIconStyle}
+          name="times"
+          type="font-awesome"
+          color={"#fff"}
+        />
+      </TouchableOpacity>
       <Text style={styles.title}>{"Beyond Blue"}</Text>
       <Text style={styles.number}>{"1300 22 4636"}</Text>
-      <TouchableOpacity
-          style={{ ...styles.action1}}
-          onPress={() => {
-            this.modalVisibleHandler(!this.state.modalVisible || false);
-          }}
-        >
-          <Text style={styles.actionText1}>{"X"}</Text>
-      </TouchableOpacity>
     </View>
-
-    
-
   );
 
   modalBody = (
     <View style={styles.modalBody}>
       <Text style={styles.bodyText}>
-        {"Beyond Blue is an Australian independent nonprofit organization working to address issues associated with depression, suicide, anxiety disorders and other related mental disorders."}
+        {
+          "Beyond Blue is an Australian independent nonprofit organization working to address issues associated with depression, suicide, anxiety disorders and other related mental disorders."
+        }
       </Text>
     </View>
   );
@@ -59,18 +63,21 @@ export default class Support extends Component {
   modalFooter = (
     <View style={styles.modalFooter}>
       <View style={{ flexDirection: "row-reverse", margin: 10 }}>
-        
-        <TouchableOpacity
-          style={{ ...styles.action2}}
-        >
-          <Text style={styles.actionText2} onPress={() => Linking.openURL(`tel:${1300224636}`)}>Call now
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL(`tel:${1300224636}`)}
+          >
+            Call now
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{ ...styles.action2}}
-        >
-          <Text style={styles.actionText2} onPress={() => Linking.openURL('https://www.beyondblue.org.au/')}>Go to Website
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL("https://www.beyondblue.org.au/")}
+          >
+            Go to Website
           </Text>
         </TouchableOpacity>
       </View>
@@ -101,8 +108,7 @@ export default class Support extends Component {
     );
   };
 
-
-  //Kindshelpline 
+  //Kindshelpline
   modalVisibleHandler1 = (v) => {
     this.setState({
       modalVisible1: v,
@@ -111,23 +117,30 @@ export default class Support extends Component {
 
   modalHeader1 = (
     <View style={styles.modalHeader}>
+      <TouchableOpacity
+        style={{ ...styles.action1 }}
+        onPress={() => {
+          this.modalVisibleHandler1(!this.state.modalVisible1 || false);
+        }}
+      >
+        <Icon
+          containerStyle={styles.closeIconStyle}
+          name="times"
+          type="font-awesome"
+          color={"#fff"}
+        />
+      </TouchableOpacity>
       <Text style={styles.title}>{"Kids Helpline"}</Text>
       <Text style={styles.number}>{"1800 55 1800"}</Text>
-      <TouchableOpacity
-          style={{ ...styles.action1}}
-          onPress={() => {
-            this.modalVisibleHandler1(!this.state.modalVisible1 || false);
-          }}
-        >
-          <Text style={styles.actionText1}>{"X"}</Text>
-      </TouchableOpacity>
     </View>
   );
 
   modalBody1 = (
     <View style={styles.modalBody}>
       <Text style={styles.bodyText}>
-        {"Kids Helpline is an Australian free, private and confidential, telephone and online counselling service specifically for young people aged between 5 and 25."}
+        {
+          "Kids Helpline is an Australian free, private and confidential, telephone and online counselling service specifically for young people aged between 5 and 25."
+        }
       </Text>
     </View>
   );
@@ -135,18 +148,21 @@ export default class Support extends Component {
   modalFooter1 = (
     <View style={styles.modalFooter}>
       <View style={{ flexDirection: "row-reverse", margin: 10 }}>
-        
-        <TouchableOpacity
-          style={{ ...styles.action2}}
-        >
-          <Text style={styles.actionText2} onPress={() => Linking.openURL(`tel:${1800551800}`)}>Call now
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL(`tel:${1800551800}`)}
+          >
+            Call now
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{ ...styles.action2}}
-        >
-          <Text style={styles.actionText2} onPress={() => Linking.openURL('https://kidshelpline.com.au/')}>Go to Website
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL("https://kidshelpline.com.au/")}
+          >
+            Go to Website
           </Text>
         </TouchableOpacity>
       </View>
@@ -177,141 +193,166 @@ export default class Support extends Component {
     );
   };
 
+  //lifeline
+  modalVisibleHandler2 = (v) => {
+    this.setState({
+      modalVisible2: v,
+    });
+  };
 
-
-//lifeline 
-modalVisibleHandler2 = (v) => {
-  this.setState({
-    modalVisible2: v,
-  });
-};
-
-modalHeader2 = (
-  <View style={styles.modalHeader}>
-    <Text style={styles.title}>{"Lifeline Australia"}</Text>
-    <Text style={styles.number}>{"13 11 14"}</Text>
-    <TouchableOpacity
-        style={{ ...styles.action1}}
+  modalHeader2 = (
+    <View style={styles.modalHeader}>
+      <TouchableOpacity
+        style={{ ...styles.action1 }}
         onPress={() => {
           this.modalVisibleHandler2(!this.state.modalVisible2 || false);
         }}
       >
-        <Text style={styles.actionText1}>{"X"}</Text>
-    </TouchableOpacity>
-  </View>
-);
-
-modalBody2 = (
-  <View style={styles.modalBody}>
-    <Text style={styles.bodyText}>
-      {"Lifeline is a non-profit organisation that provides free, 24-hour Telephone Crisis Support service in Australia. Volunteer Crisis Supporters provide suicide prevention services, mental health support and emotional assistance, not only via telephone but face-to-face and online."}
-    </Text>
-  </View>
-);
-
-modalFooter2 = (
-  <View style={styles.modalFooter}>
-    <View style={{ flexDirection: "row-reverse", margin: 10 }}>
-      
-      <TouchableOpacity
-        style={{ ...styles.action2}}
-      >
-        <Text style={styles.actionText2} onPress={() => Linking.openURL(`tel:${131114}`)}>Call now
-        </Text>
+        <Icon
+          containerStyle={styles.closeIconStyle}
+          name="times"
+          type="font-awesome"
+          color={"#fff"}
+        />
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={{ ...styles.action2}}
-      >
-        <Text style={styles.actionText2} onPress={() => Linking.openURL('https://www.lifeline.org.au/')}>Go to Website
-        </Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>{"Lifeline Australia"}</Text>
+      <Text style={styles.number}>{"13 11 14"}</Text>
     </View>
-  </View>
-);
-
-modalContainer2 = (
-  <View style={styles.modalContainer}>
-    {this.modalHeader2}
-    {this.modalBody2}
-    {this.modalFooter2}
-  </View>
-);
-
-Modal2 = () => {
-  return (
-    <Modal
-      transparent={true}
-      visible={this.state.modalVisible2 || false}
-      // onRequestClose={() => {
-      //   Alert.alert("Modal has been closed.");
-      // }}
-    >
-      <View style={styles.modal}>
-        <View>{this.modalContainer2}</View>
-      </View>
-    </Modal>
   );
-};
 
+  modalBody2 = (
+    <View style={styles.modalBody}>
+      <Text style={styles.bodyText}>
+        {
+          "Lifeline is a non-profit organisation that provides free, 24-hour Telephone Crisis Support service in Australia. Volunteer Crisis Supporters provide suicide prevention services, mental health support and emotional assistance, not only via telephone but face-to-face and online."
+        }
+      </Text>
+    </View>
+  );
 
+  modalFooter2 = (
+    <View style={styles.modalFooter}>
+      <View style={{ flexDirection: "row-reverse", margin: 10 }}>
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL(`tel:${131114}`)}
+          >
+            Call now
+          </Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity style={{ ...styles.action2 }}>
+          <Text
+            style={styles.actionText2}
+            onPress={() => Linking.openURL("https://www.lifeline.org.au/")}
+          >
+            Go to Website
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 
+  modalContainer2 = (
+    <View style={styles.modalContainer}>
+      {this.modalHeader2}
+      {this.modalBody2}
+      {this.modalFooter2}
+    </View>
+  );
 
-
+  Modal2 = () => {
+    return (
+      <Modal
+        transparent={true}
+        visible={this.state.modalVisible2 || false}
+        // onRequestClose={() => {
+        //   Alert.alert("Modal has been closed.");
+        // }}
+      >
+        <View style={styles.modal}>
+          <View>{this.modalContainer2}</View>
+        </View>
+      </Modal>
+    );
+  };
 
   render() {
     return (
-        <View style={styles.background}>
-
-        <View>{this.Modal()}</View>
-        <TouchableOpacity
-          style={styles.Support}
-          activeOpacity={0.5}
-          onPress={() => {
-            this.modalVisibleHandler(true);
+      <Container style={styles2.bgPurple1}>
+        <Header style={styles2.bgPurple2}>
+          <Left>
+            <Icon
+              name="bars"
+              type="font-awesome"
+              onPress={() => this.props.navigation.openDrawer()}
+            />
+          </Left>
+          <Right />
+        </Header>
+        <Content
+          contentContainerStyle={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Image source={require('app/assets/bb-logo.png')} style = {styles.ImageClass} />
-        </TouchableOpacity>
+          <ScrollView style={styles.background}>
+            {/* <ScrollView style={{ backgroundColor: "blue" }}> */}
+            {/* ********************************** */}
+            {/* BEYOND BLUE */}
+            {this.Modal()}
+            <TouchableOpacity
+              style={styles.Support}
+              activeOpacity={0.5}
+              onPress={() => {
+                this.modalVisibleHandler(true);
+              }}
+            >
+              <Image
+                source={require("app/assets/bb-logo.png")}
+                style={styles.ImageClass}
+              />
+            </TouchableOpacity>
 
-        <View>{this.Modal1()}</View>
-        <TouchableOpacity
-          style={styles.Support}
-          activeOpacity={0.5}
-          onPress={() => {
-            this.modalVisibleHandler1(true);
-          }}
-        >
-          <Image source={require('app/assets/Kids-Helpline_logo.png')} style = {styles.ImageClass} />
-        </TouchableOpacity>
+            {/* ********************************** */}
+            {/* KIDS HELP LINE */}
+            {this.Modal1()}
+            <TouchableOpacity
+              style={styles.Support}
+              activeOpacity={0.5}
+              onPress={() => {
+                this.modalVisibleHandler1(true);
+              }}
+            >
+              <Image
+                source={require("app/assets/Kids-Helpline_logo.png")}
+                style={styles.ImageClass}
+              />
+            </TouchableOpacity>
 
-        <View>{this.Modal2()}</View>
-        <TouchableOpacity
-          style={styles.Support}
-          activeOpacity={0.5}
-          onPress={() => {
-            this.modalVisibleHandler2(true);
-          }}
-        >
-          <Image source={require('app/assets/lifeline-logo.png')} style = {styles.ImageClass} />
-        </TouchableOpacity>
-
-
-
-      </View>
+            {/* ********************************** */}
+            {/* LIFE LINE */}
+            {this.Modal2()}
+            <TouchableOpacity
+              style={styles.Support}
+              activeOpacity={0.5}
+              onPress={() => {
+                this.modalVisibleHandler2(true);
+              }}
+            >
+              <Image
+                source={require("app/assets/lifeline-logo.png")}
+                style={styles.ImageClass}
+              />
+            </TouchableOpacity>
+          </ScrollView>
+        </Content>
+      </Container>
     );
   }
 }
-
-
-
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -338,14 +379,13 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     color: "#fff",
     textAlign: "center",
-    
   },
   number: {
-    fontWeight: '400',
+    fontWeight: "400",
     fontSize: 15,
     padding: 5,
     color: "#fff",
-    textAlign: 'center',
+    textAlign: "center",
   },
   modalBody: {
     backgroundColor: "#101726",
@@ -358,11 +398,9 @@ const styles = StyleSheet.create({
   },
   modalFooter: {},
   action1: {
-    position: 'absolute',
-    left: 270,
-    right: 0,
-    top: 15,
-    bottom: 0,
+    flexDirection: "row",
+    display: "flex",
+    justifyContent: "flex-end",
   },
   action2: {
     borderRadius: 5,
@@ -377,28 +415,26 @@ const styles = StyleSheet.create({
   actionText2: {
     color: "#fff",
     fontWeight: "bold",
-
   },
-  Support: { 
+  Support: {
     alignItems: "center",
     justifyContent: "center",
-    margin: 10,
+    top: 20,
+    paddingBottom: 20,
   },
-
   ImageClass: {
-    width: 350,
-    height: 200,
-    top: 70,
-    bottom: 500,
+    width: width / 1.2,
+    height: height / 4,
     borderRadius: 40,
-    alignSelf: 'center',
-    resizeMode: 'cover',
-
+    alignSelf: "center",
+    resizeMode: "cover",
   },
-
   background: {
-    flex: 1,
     backgroundColor: "#101726",
+  },
+  closeIconStyle: {
+    paddingRight: 10,
+    paddingTop: 5,
   },
 });
 

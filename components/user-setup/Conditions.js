@@ -62,7 +62,7 @@ const Conditions = (props) => {
 
   const renderAccordians = () => {
     const items = [];
-    if (typeof conditionsArr[0] !== "undefined") {
+    if (conditionsArr.length > 0 && typeof conditionsArr[0] !== "undefined") {
       for (let x = 0; x < conditionsArr.length; x++) {
         items.push(
           <Accordion
@@ -95,8 +95,22 @@ const Conditions = (props) => {
     return items;
   };
 
+  const find_dimesions = (layout) => {
+    const { x, y, width, height } = layout;
+    console.log("*******");
+    console.log(x);
+    console.log(y);
+    console.log(width);
+    console.log(height);
+  };
+
   return (
-    <View style={styles.frameV2}>
+    <View
+      style={styles.frameV2}
+      onLayout={(e) => {
+        find_dimesions(e.nativeEvent.layout);
+      }}
+    >
       <ScrollView>{renderAccordians()}</ScrollView>
     </View>
   );

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
-import { Icon } from "react-native-elements";
 import { DateTimePickerModal } from "react-native-modal-datetime-picker";
 
 import db from "app/db/scripts/User.js";
