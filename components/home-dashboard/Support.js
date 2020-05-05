@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
   },
   ImageClass: {
     width: width / 1.2,
-    height: height / 4,
+    height: height / 3.8,
     borderRadius: 40,
     alignSelf: "center",
     resizeMode: "cover",
