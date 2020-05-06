@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Text, Image } from "react-native";
-import { Container, Header, Content, Left, Right } from "native-base";
+import { View, Text, Image } from "react-native";
+import { Container, Header, Content, Left, Right, Body } from "native-base";
 import { Icon } from "react-native-elements";
 import styles from "app/cstyles/android/androidStyles";
+import CircularProgress from "app/components/home-dashboard/CircularProgress";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -13,7 +14,30 @@ class HomeScreen extends Component {
       />
     ),
   };
+
+  rand = () => {
+    return Math.floor(Math.random() * 100) + 1;
+  };
+
   render() {
+    var components = [];
+    for (let x = 0; x < 10; x++) {
+      components.push(
+        <View key={x} style={styles.gauge}>
+          <Left>
+            <CircularProgress percent={this.rand()} />
+          </Left>
+          <Body>
+            <Text style={{ color: "#fff" }}>
+              {"Learning Module " + (x + 1)}
+            </Text>
+          </Body>
+          <Right>
+            <Text style={{ color: "#fff" }}>{"Not Complete"}</Text>
+          </Right>
+        </View>
+      );
+    }
     return (
       <Container style={styles.bgPurple1}>
         <Header style={styles.bgPurple2}>
@@ -34,6 +58,7 @@ class HomeScreen extends Component {
           }}
         >
           <Text style={{ color: "#fff" }}> HomeScreen </Text>
+          {/* {components} */}
         </Content>
       </Container>
     );

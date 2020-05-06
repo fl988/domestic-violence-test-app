@@ -80,35 +80,44 @@ export default class UserSetupSwiper extends Component {
     }
   }
 
+  confirmModal = (i, l) => {
+    if (i == l) {
+      return (
+        <CustomModal
+          action={this.props.action}
+          modalVisible={this.state.modalVisible}
+          modalVisibleHandler={this.modalVisibleHandler}
+          modalHeader={"Confirmation"}
+          modalBody={
+            "Could you please confirm if your details below are all correct. \n\n" +
+            this.state.userDetails
+          }
+        />
+      );
+    }
+  };
+
   screenNavButtonsHandler = (i) => {
     let component = (
       <View style={styles.navBackButton}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <Icon
+          reverse
+          name="chevron-left"
+          type="font-awesome"
+          onPress={() => this.refs.swiper.scrollBy(-1)}
+        />
+        {i == this.PAGES.length - 1 ? (
           <Icon
             reverse
-            name="chevron-left"
+            name="check"
             type="font-awesome"
-            onPress={() => this.refs.swiper.scrollBy(-1)}
+            onPress={() => {
+              this.modalVisibleHandler(true);
+            }}
           />
-          {i == this.PAGES.length - 1 ? (
-            <Icon
-              reverse
-              name="check"
-              type="font-awesome"
-              style={{ alignSelf: "flex-end" }}
-              onPress={() => {
-                this.modalVisibleHandler(true);
-              }}
-            />
-          ) : (
-            <></>
-          )}
-        </View>
+        ) : (
+          <></>
+        )}
       </View>
     );
 
@@ -117,7 +126,7 @@ export default class UserSetupSwiper extends Component {
 
   render() {
     return (
-      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={true}>
+      <Swiper ref="swiper" loop={false} index={0} scrollEnabled={false}>
         {/* We map the pages, which works like loops. */}
         {this.PAGES.map((page, i) => (
           <View key={i} style={{ flex: 1, backgroundColor: page.bgColor }}>
@@ -127,16 +136,7 @@ export default class UserSetupSwiper extends Component {
             </View>
             {page.component}
             {this.screenNavButtonsHandler(i)}
-            <CustomModal
-              action={this.props.action}
-              modalVisible={this.state.modalVisible}
-              modalVisibleHandler={this.modalVisibleHandler}
-              modalHeader={"Confirmation"}
-              modalBody={
-                "Could you please confirm if your details below are all correct. \n\n" +
-                this.state.userDetails
-              }
-            />
+            {this.confirmModal(i, this.PAGES.length - 1)}
           </View>
         ))}
       </Swiper>
