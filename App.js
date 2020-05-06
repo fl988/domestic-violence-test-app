@@ -49,15 +49,15 @@ export default class App extends Component {
 
     if (isUserAlreadySet && isUserCompleteOnboarding) {
       this.setState({
-        userLanding: [<SplashScreen key={0}/>,<HomeDashboard key={1} deleteAccountHandler={this.deleteAccountHandler} />] //prettier-ignore
+        userLanding: <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} /> //prettier-ignore
       });
     } else if (isUserAlreadySet && !isUserCompleteOnboarding) {
       this.setState({
-        userLanding: [<SplashScreen key={0}/>,<CustomOnboarding key={1} completeUserOnboarding={this.completeUserOnboarding} />] //prettier-ignore
+        userLanding: <CustomOnboarding completeUserOnboarding={this.completeUserOnboarding} /> //prettier-ignore
       });
     } else {
       this.setState({
-        userLanding: [<SplashScreen key={0}/>,<UserSetupSwiper key={1} action={this.completeUserSetUp} />] // prettier-ignore
+        userLanding: [<SplashScreen />,<UserSetupSwiper action={this.completeUserSetUp} /> ] // prettier-ignore
       });
     }
   }
@@ -68,7 +68,6 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         {/* HELLO IM A NEW CHANGE  hellow*/}
-        <SplashScreen />
         <StatusBar hidden />
         {this.state.userLanding}
       </View>

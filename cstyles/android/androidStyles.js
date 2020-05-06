@@ -20,8 +20,6 @@ export default StyleSheet.create({
     marginTop: PAGE_HEIGHT / 1.2,
     marginLeft: 60,
     marginRight: 60,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   screenDimension: {
     width,
@@ -243,16 +241,6 @@ export default StyleSheet.create({
     backgroundColor: "#fff", //Light grey
     opacity: 0.9,
     padding: 16,
-  },
-  /*************************************/
-
-  /*************************************/
-  // Progress Gauge Components
-  gauge: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
   /*************************************/
 });
