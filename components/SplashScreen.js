@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Animated } from "react-native";
 import { Icon } from "react-native-elements";
 import styles from "app/cstyles/android/androidStyles.js";
@@ -7,7 +7,7 @@ import styles from "app/cstyles/android/androidStyles.js";
 This screen's main purpose is to always show a splash screen every time the app is opened or resumed.
 */
 
-export default class SplashScreen extends React.Component {
+export default class SplashScreen extends Component {
   /****************************************************************************************************************************************************/
   //We set 'isLoading' to 'true'
   constructor() {
@@ -15,10 +15,21 @@ export default class SplashScreen extends React.Component {
     this.state = { isLoading: true, animation: new Animated.Value(0) };
   }
 
-  componentDidMount() {
+  /****************************************************************************************************************************************************/
+  //Please read this link about async functions => https://blog.expo.io/react-native-meets-async-functions-3e6f81111173
+  async componentDidMount() {
     this.startAnimation();
-  }
 
+    //We then run the function which will take us about 'n' second(s).
+    const data = await this.performTimeConsumingTask(); //Hold CTRL and Click "performTimeConsumingTask" to see where this function is.
+    //After 'n' second(s) we already received our data.
+
+    if (data !== null) {
+      // Since we already have some fake data as a return, we then set the isLoading to false.
+      this.setState({ isLoading: false });
+      // This would cause the screen to re-render again.
+    }
+  }
   /****************************************************************************************************************************************************/
   //First we create a function that can consume time.
   performTimeConsumingTask = async () => {
@@ -41,20 +52,6 @@ export default class SplashScreen extends React.Component {
       }).start();
     });
   };
-
-  /****************************************************************************************************************************************************/
-  //Please read this link about async functions => https://blog.expo.io/react-native-meets-async-functions-3e6f81111173
-  async componentDidMount() {
-    //We then run the function which will take us about 'n' second(s).
-    const data = await this.performTimeConsumingTask(); //Hold CTRL and Click "performTimeConsumingTask" to see where this function is.
-    //After 'n' second(s) we already received our data.
-
-    if (data !== null) {
-      // Since we already have some fake data as a return, we then set the isLoading to false.
-      this.setState({ isLoading: false });
-      // This would cause the screen to re-render again.
-    }
-  }
 
   /****************************************************************************************************************************************************/
   render() {
