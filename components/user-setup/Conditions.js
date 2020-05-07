@@ -95,15 +95,6 @@ const Conditions = (props) => {
     return items;
   };
 
-  // const find_dimesions = (layout) => {
-  //   const { x, y, width, height } = layout;
-  //   console.log("*******");
-  //   console.log(x);
-  //   console.log(y);
-  //   console.log(width);
-  //   console.log(height);
-  // };
-
   return (
     <View
       style={styles.frameV2}

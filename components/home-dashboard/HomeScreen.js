@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Text, Image } from "react-native";
-import { Container, Header, Content, Left, Right } from "native-base";
+import { View, Text, Image } from "react-native";
+import { Container, Header, Content, Left, Right, Body } from "native-base";
 import { Icon } from "react-native-elements";
 import styles from "app/cstyles/android/androidStyles";
+import CircularProgress from "app/components/home-dashboard/CircularProgress";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -13,6 +14,46 @@ class HomeScreen extends Component {
       />
     ),
   };
+
+  rand = () => {
+    return Math.floor(Math.random() * 100) + 1;
+  };
+
+  find_dimesions = (layout) => {
+    const { x, y, width, height } = layout;
+    console.log("*******");
+    console.log(x);
+    console.log(y);
+    console.log(width);
+    console.log(height);
+  };
+  // onLayout={(e) => {
+  //   this.find_dimesions(e.nativeEvent.layout);
+  // }}
+
+  PAGES = [
+    {
+      progressGauge: <CircularProgress percent={100} />,
+      title: "Title",
+      completion: "Completed",
+    },
+    {
+      progressGauge: <CircularProgress percent={90} />,
+      title: "Title",
+      completion: "Completed",
+    },
+    {
+      progressGauge: <CircularProgress percent={80} />,
+      title: "Title",
+      completion: "Completed",
+    },
+    {
+      progressGauge: <CircularProgress percent={70} />,
+      title: "Title",
+      completion: "Completed",
+    },
+  ];
+
   render() {
     return (
       <Container style={styles.bgPurple1}>
@@ -24,16 +65,27 @@ class HomeScreen extends Component {
               onPress={() => this.props.navigation.openDrawer()}
             />
           </Left>
-          <Right />
+          <Body>
+            <Text style={styles.rneHeaderBody}>{"Learning Modules"}</Text>
+          </Body>
         </Header>
-        <Content
-          contentContainerStyle={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ color: "#fff" }}> HomeScreen </Text>
+        <Content contentContainerStyle={styles.rneContent}>
+          {/* *************************** */}
+          {/* START */}
+          <View style={{ paddingTop: 10 }}>{/* Empty Space */}</View>
+          {this.PAGES.map((page, x) => (
+            <View key={x} style={styles.learningModuleItem}>
+              <Left>{page.progressGauge}</Left>
+              <Body>
+                <Text style={styles.lmText}>{page.title + " " + (x + 1)}</Text>
+              </Body>
+              <Right>
+                <Text style={styles.lmText}>{page.completion}</Text>
+              </Right>
+            </View>
+          ))}
+          {/* END */}
+          {/* *************************** */}
         </Content>
       </Container>
     );

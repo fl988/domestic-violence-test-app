@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, TouchableWithoutFeedback } from "react-native";
-import ProgressCircle from "react-native-progress-circle";
+import {
+  View,
+  Text,
+  Dimensions,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from "react-native";
+import ProgressCircle from "react-native-progress-circle"; //https://www.npmjs.com/package/react-native-progress-circle
+import styles from "app/cstyles/android/androidStyles";
 
 const { width } = Dimensions.get("window");
 const size = width / 2;
 const strokeWidth = size / 1.3;
-const radius = (size - strokeWidth) / 2;
+const radius = (size - strokeWidth) / 1.7;
 //const circumference = radius * 2 * Math.PI;
 
 export default class CircularProgress extends Component {
@@ -33,20 +40,12 @@ export default class CircularProgress extends Component {
           <ProgressCircle
             percent={this.state.percent}
             radius={radius}
-            borderWidth={8}
-            color="#3399FF"
+            borderWidth={10}
+            color="#2A1D59"
             shadowColor="#999"
-            bgColor="#fff"
+            bgColor="#78738C"
           >
-            <Text
-              style={{
-                fontSize: 18,
-                textAlign: "center",
-              }}
-            >
-              {/* {"My Progress\n"}
-            {this.state.percent + "%"} */}
-            </Text>
+            <Text style={styles.gaugeText}>{this.state.percent + "%"}</Text>
           </ProgressCircle>
         </View>
       </TouchableWithoutFeedback>
