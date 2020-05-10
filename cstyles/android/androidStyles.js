@@ -8,10 +8,10 @@ export default StyleSheet.create({
   /*************************************/
   // Colors
   bgPurple1: {
-    backgroundColor: "#663399",
+    backgroundColor: "#101726",
   },
   bgPurple2: {
-    backgroundColor: "#5E2399",
+    backgroundColor: "#2A1D59",
   },
   /*************************************/
 
@@ -20,6 +20,8 @@ export default StyleSheet.create({
     marginTop: PAGE_HEIGHT / 1.2,
     marginLeft: 60,
     marginRight: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   screenDimension: {
     width,
@@ -104,6 +106,18 @@ export default StyleSheet.create({
     height: PAGE_WIDTH - 20,
     width: PAGE_WIDTH - 100,
     margin: 50,
+  },
+  sectionStyle: {
+    flexDirection: "row",
+    margin: 15,
+    height: 40,
+    borderColor: "#fff",
+    borderRadius: 3,
+    backgroundColor: "#fff",
+    opacity: 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
   input: {
     margin: 15,
@@ -229,6 +243,49 @@ export default StyleSheet.create({
     backgroundColor: "#fff", //Light grey
     opacity: 0.9,
     padding: 16,
+  },
+  /*************************************/
+
+  /*************************************/
+  // Learning Modules Page Stylings
+  learningModuleItem: {
+    // flex: 1, //this will fill out the remaining spaces, don't need it for now.
+    display: "flex",
+    flexDirection: "row",
+    margin: 8,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "#78738C", //"rgba(255,255,255, 0.3)",
+    borderRadius: 8,
+    height: PAGE_HEIGHT / 11,
+    width: PAGE_WIDTH / 1.15,
+  },
+  lmText: {
+    color: "#fff",
+    fontSize: 15,
+  },
+  /*************************************/
+
+  /*************************************/
+  // Left, Header, Right components (react-native-elements)
+  rneHeaderBody: {
+    color: "#78738C",
+    fontWeight: "bold",
+  },
+  rneContent: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  /*************************************/
+
+  /*************************************/
+  // Gauge
+  gaugeText: {
+    fontSize: 10,
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
   },
   /*************************************/
 });

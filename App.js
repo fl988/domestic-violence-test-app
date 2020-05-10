@@ -49,15 +49,15 @@ export default class App extends Component {
 
     if (isUserAlreadySet && isUserCompleteOnboarding) {
       this.setState({
-        userLanding: <HomeDashboard deleteAccountHandler={this.deleteAccountHandler} /> //prettier-ignore
+        userLanding: [<SplashScreen key={0}/>,<HomeDashboard key={1} deleteAccountHandler={this.deleteAccountHandler} />] //prettier-ignore
       });
     } else if (isUserAlreadySet && !isUserCompleteOnboarding) {
       this.setState({
-        userLanding: <CustomOnboarding completeUserOnboarding={this.completeUserOnboarding} /> //prettier-ignore
+        userLanding: [<SplashScreen key={0}/>,<CustomOnboarding key={1} completeUserOnboarding={this.completeUserOnboarding} />] //prettier-ignore
       });
     } else {
       this.setState({
-        userLanding: [<SplashScreen />,<UserSetupSwiper action={this.completeUserSetUp} /> ] // prettier-ignore
+        userLanding: [<SplashScreen key={0}/>,<UserSetupSwiper key={1} action={this.completeUserSetUp} />] // prettier-ignore
       });
     }
   }
@@ -68,6 +68,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         {/* HELLO IM A NEW CHANGE  hellow*/}
+        <SplashScreen />
         <StatusBar hidden />
         {this.state.userLanding}
       </View>
@@ -82,7 +83,6 @@ Git Hub Command Line
   - git fetch origin
   The command below will download changes and at the same time integrate those new changes into your local repository.
   - git pull origin master
-
   If you're making changes please do the following steps.
     Create a new branch and switch to it using the code below.
       - git checkout -b my_feature_that_i_want_to_add
@@ -94,16 +94,13 @@ Git Hub Command Line
       - Deleting your changes use this
         - git branch -d my_feature_that_i_want_to_add
     It is advisable to delete your branch once you're done with it.
-
   Modified Files
   - 'git status' to see whats up
   - 'git commit -am "your message"' to bundle your modified changes ready to be pushed into your github repository. Note: your changes are not yet in the repository.
-
   New Files and Folders
   - 'git status' to see the list of folders and files
   - 'git add <file OR folder>' to add it in to your local repository officially. EXAMPLE: git add components/Constants.js
   - 'git commit -am "your message" to bundle your new file/folder and be ready to be pushed into your githb  repository.
-
   Checking in your changes.
   - 'git push origin master' this is the code you need to push in your changes into github.
 */

@@ -23,11 +23,16 @@
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-check-box": "^2.1.7",
+<<<<<<< HEAD
     "react-native-drop-down-item": "^1.1.0",
     "react-native-elements": "^1.2.7",
+=======
+    "react-native-elements": "^2.0.0",
+>>>>>>> a2797d50cb0620ea153aeb0a5edbe7bc5cd6865d
     "react-native-gesture-handler": "~1.5.0",
     "react-native-modal-datetime-picker": "^8.5.1",
     "react-native-onboarding-swiper": "^1.1.1",
+    "react-native-progress-circle": "^2.1.0",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",

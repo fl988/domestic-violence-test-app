@@ -62,7 +62,10 @@ export default CustomOnboarding = (props) => {
       // SkipButtonComponent={Skip}
       // DoneButtonComponent={Done}
       showDone={false}
-      onSkip={() => Alert.alert("Skipped")}
+      onSkip={() => {
+        props.completeUserOnboarding();
+        StatusBar.setBarStyle("default");
+      }}
       pages={PAGES}
     />
   );

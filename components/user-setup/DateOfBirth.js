@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { DateTimePickerModal } from "react-native-modal-datetime-picker";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-// Database
 import db from "app/db/scripts/User.js";
-// Styles
 import styles from "app/cstyles/android/androidStyles.js";
+
+import CustomTextInput from "app/components/user-setup/CustomTextInput";
 
 const DateOfBirth = (props) => {
   /***********************************************************************************/
@@ -61,15 +61,16 @@ const DateOfBirth = (props) => {
   // The returning component
   return (
     <View style={styles.frame}>
-      <TouchableOpacity onPress={showDatePicker}>
-        <TextInput
-          placeholder="'Tap' to select date of birth"
-          placeholderTextColor="#464950"
-          style={styles.input}
-          editable={false}
-          value={getDateDisplay.length > 0 ? getDateDisplay.toString() : null}
-        />
-      </TouchableOpacity>
+      <CustomTextInput
+        editable={false}
+        onPress={showDatePicker}
+        leftIcon={"calendar"}
+        leftIconType={"font-awesome"} //the type of the icon you're using.
+        leftIconColor={"black"} //you can put simple color words or hex or rgb.
+        textInputPlaceholder={"'Tap' to select date of birth"}
+        textInputPlaceholderColor={"black"}
+        value={getDateDisplay.length > 0 ? getDateDisplay.toString() : null}
+      />
       <View>{nextBtn}</View>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
