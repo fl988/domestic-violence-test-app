@@ -26,6 +26,8 @@ import HomeScreen from "app/components/home-dashboard/HomeScreen";
 import SettingsScreen from "app/components/home-dashboard/SettingsScreen";
 import CustomModal from "app/components/user-setup/CustomModal";
 import Support from "app/components/home-dashboard/Support";
+import FAQ from "app/components/home-dashboard/FAQ";
+
 
 
 const Drawer = createDrawerNavigator();
@@ -66,6 +68,13 @@ export default class HomeDashboard extends React.Component {
           component={Support}
           options={{ drawerLabel: "Support" }}
         />
+        <Drawer.Screen
+          name="FAQ"
+          component={FAQ}
+          options={{ drawerLabel: "FAQ" }}
+        />
+
+
       </Drawer.Navigator>
     );
   };
